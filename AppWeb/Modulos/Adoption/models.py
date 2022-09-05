@@ -2,8 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class Person(models.Model):
+    person = models.OneToOneField(User, on_delete=models.CASCADE)
+    fono = models.PositiveIntegerField('Numero telefónico')
+    photo = models.ImageField('Foto del usuario', upload_to="Usuarios", default=None)
+
+
 class UserAdoptive(models.Model):
-    person_adoptive = models.OneToOneField(User, on_delete=models.CASCADE)
+    person_adoptive = models.OneToOneField(Person, on_delete=models.CASCADE)
     ci = models.CharField('Carnet de identidad', max_length=20)
     direccion = models.CharField('Dirección', max_length=254)
     cantidad_max = models.PositiveIntegerField('Cantidad de canes adoptados', default=0)
@@ -50,17 +56,10 @@ class Sterilization(models.Model):
     dog = models.OneToOneField(Dog, on_delete=models.CASCADE)
 
 
-class Sponsor(models.Model):
-    user_sponsor = models.ForeignKey(User, on_delete=models.CASCADE)
-    dog = models.ForeignKey(Dog, null=True, on_delete=models.SET_NULL)
-    date = models.DateField('Fecha de donación')
-    monto = models.DecimalField('Monto de donación')
-
-
 class Volunteers(models.Model):
     name = models.CharField('Nombre', max_length=250)
     last_name = models.CharField('Apellidos', max_length=250)
     ci = models.PositiveIntegerField('Carnet de identidad')
     user_charge = models.CharField('Cargo del voluntario', max_length=100)
     birth_date = models.DateField('Fecha de Nacimiento')
-    authorization = models.ImageField()
+    authorization = models.BooleanField('Autorización', default=False)

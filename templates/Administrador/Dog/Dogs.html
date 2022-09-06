@@ -1,0 +1,194 @@
+{% extends 'Administrador/admin.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class = "row justify-content-center">
+            <div class = "col-6 text-end">
+                <h2 class = "display-3">Lista de canes</h2>
+            </div>
+            <div class = "col-6 text-end">
+                <div class = "pt-1 pb-1 ps-1 m-1">
+                    <button class = "btn btn-behance btn-sm d-inline-flex align-items-center" type = "button"
+                            data-bs-toggle = "modal"
+                            data-bs-target = "#modal-subscribe">
+                        <img src = "{% static 'img/iconos/1.svg' %}" height = "30" width = "30"
+                             alt = "">
+                        <span>Registrar can</span>
+                    </button>
+                    <!-- Contenido del modal -->
+                    <form action = "{% url 'vista_registrar_dog' %}" method = "post" enctype = "multipart/form-data">
+                        {% csrf_token %}
+                        <div class = "modal fade" id = "modal-subscribe" tabindex = "-1" role = "dialog"
+                             aria-labelledby = "modal-subscribe" aria-hidden = "true">
+                            <div class = "modal-dialog modal-tertiary modal-dialog-centered modal-xl" role = "document">
+                                <div class = "modal-content bg-dark text-white">
+                                    <div class = "modal-header">
+                                        <button type = "button" class = "btn-close btn-close-white text-white"
+                                                data-bs-dismiss = "modal"
+                                                aria-label = "Close"></button>
+                                    </div>
+                                    <div class = "modal-body text-center py-3">
+                                        <div class = "row">
+                                            <div class = "text-center">
+                                                <span class = "display-4">Datos del Can</span>
+                                                <img src = "{% static 'img/iconos/1.svg' %}" height = "60" width = "60"
+                                                     alt = "">
+                                            </div>
+                                        </div>
+                                        <div class = "row mb-4">
+                                            <div class = "col-lg-4 col-sm-6">
+                                                <div class = "mb-3">
+                                                    <label>Nombre del Can</label> <span style = "color: gold">*</span>
+                                                    <input type = "text" class = "form-control" name = "nombre_can"
+                                                           autocomplete = "off" required>
+                                                </div>
+                                                <div class = "mb-3">
+                                                    <label class = "my-1 me-2" for = "country">Especie</label>
+                                                    <span style = "color: gold">*</span>
+                                                    <select class = "form-select" name = "especie_can">
+                                                        <option selected>Seleccionar opción</option>
+                                                        <option>Perro</option>
+                                                        <option>Gato</option>
+                                                    </select>
+                                                </div>
+                                                <div class = "mb-3">
+                                                    <label class = "my-1 me-2" for = "country">Sexo</label>
+                                                    <span style = "color: gold">*</span>
+                                                    <select class = "form-select" name = "sexo_can">
+                                                        <option selected>Seleccionar opción</option>
+                                                        <option>Macho</option>
+                                                        <option>Hembra</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class = "col-lg-4 col-sm-6">
+                                                <div class = "mb-3">
+                                                    <label for = "birthday">Fecha de nacimiento</label>
+                                                    <span style = "color: gold">*</span>
+                                                    <div class = "input-group">
+                                                        <input class = "form-control" name = "fecha_can" type = "date"
+                                                               placeholder = "dd/mm/yyyy" required>
+                                                    </div>
+                                                </div>
+                                                <div class = "mb-3">
+                                                    <label>Raza del Can</label> <span style = "color: gold">*</span>
+                                                    <input type = "text" class = "form-control" name = "raza_can"
+                                                           id = "tags" required>
+                                                </div>
+                                                <div class = "mb-3">
+                                                    <label>Color del can</label>
+                                                    <span style = "color: gold">*</span>
+                                                    <input type = "text" class = "form-control" name = "color_can"
+                                                           autocomplete = "off">
+                                                </div>
+                                            </div>
+                                            <div class = "col-lg-4 col-sm-6">
+                                                <div class = "mb-3">
+                                                    <label class = "my-1 me-2" for = "country">Tamaño</label>
+                                                    <span style = "color: gold">*</span>
+                                                    <select class = "form-select" name = "tamano_can">
+                                                        <option selected>Seleccionar opción</option>
+                                                        <option>Pequeño</option>
+                                                        <option>Mediano</option>
+                                                        <option>Grande</option>
+                                                    </select>
+                                                </div>
+                                                <div class = "mb-3">
+                                                    <label for = "formFile" class = "form-label">Foto del can</label>
+                                                    <span style = "color: gold">*</span>
+                                                    <input class = "form-control" type = "file" name = "foto_can">
+                                                </div>
+                                                <div class = "mb-3">
+                                                    <label for = "textarea">Descripción de personalidad</label>
+                                                    <span style = "color: gold">*</span>
+                                                    <textarea class = "form-control" placeholder = "Descripción...."
+                                                              name = "personalidad_can" rows = "5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class = "modal-footer z-2 mx-auto text-center">
+                                        <div class = "row">
+                                            <div class = "col-lg-6">
+                                                <button class = "btn btn-danger" data-bs-dismiss = "modal">Cancelar
+                                                </button>
+                                            </div>
+                                            <div class = "col-lg-6">
+                                                <button type = "submit" class = "btn btn-success">Registrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "card border-0 shadow mb-4">
+        <div class = "card-body">
+            <form action = "{% url 'vista_listar_dog' %}" method = "get">
+                <div class = "row mb-2 justify-content-end">
+                    <div class = "col-6 col-sm-5 col-md-4 text-end">
+                        <input class = "form-control d-inline" type = "text" name = "search" autocomplete = "off"
+                               value = "{{ request.GET.search }}">
+                    </div>
+                    <div class = "col-3 col-sm-auto col-md-auto text-end">
+                        <button class = "btn btn-facebook" type = "submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <div class = "table-responsive">
+                <table class = "table table-centered table-nowrap mb-0 rounded">
+                    <thead class = "thead-light">
+                    <tr class = "text-center">
+                        <th class = "border-0 rounded-start">#</th>
+                        <th class = "border-0">Nombre</th>
+                        <th class = "border-0">Raza</th>
+                        <th class = "border-0">Sexo</th>
+                        <th class = "border-0">Foto</th>
+                        <th class = "border-0">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dog in dogs %}
+                        <tr class = "text-center">
+                            <td>{{ dog.id }}</td>
+                            <td>{{ dog.name }}</td>
+                            <td>{{ dog.race.name }}</td>
+                            <td>{{ dog.sex }}</td>
+                            <td><img class = "rounded-pill" src = "{{ dog.photo.url }}" height = "40" width = "40"
+                                     alt = ""></td>
+                            <td>
+                                <button class = "btn btn-sm btn-secondary">Editar</button>
+                                <button class = "btn btn-sm btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_script %}
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel = "stylesheet" type = "text/css"/>
+    <script type = "text/javascript">
+        $(function () {
+            var availableTags = [
+                {% for raza in razas %}
+                    "{{raza.name}}",
+                {% endfor %}
+            ];
+            $("#tags").autocomplete({
+                source: availableTags
+            });
+        });
+    </script>
+
+{% endblock %}

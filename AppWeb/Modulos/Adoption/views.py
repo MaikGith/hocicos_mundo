@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from .models import *
@@ -5,10 +6,17 @@ from .models import *
 
 class AdminListarDog(View):
     def get(self, request):
+        search = request.GET.get('search')
         dogs = Dog.objects.all()
         races = Race.objects.all()
         pk = self.request.user
         usuario = Person.objects.get(person_id=pk)
+        if search:
+            dogs = Dog.objects.filter(
+                Q(name__icontains=search) |
+                Q(race__name__icontains=search) |
+                Q(sex__icontains=search)
+            )
         return render(request, 'Administrador/Dog/Dogs.html', {'dogs': dogs, 'razas': races, 'usuario': usuario})
 
 
@@ -22,8 +30,24 @@ class AdminRegistroDog(View):
         personality = request.POST['personalidad_can']
         size = request.POST['tamano_can']
         photo = request.FILES['foto_can']
-        race = request.POST['raza_can']
+        race_name = request.POST['raza_can']
+        race = Race.objects.get(name=race_name).id
         new_dog = Dog.objects.create(name=name, specie=specie, sex=sex, birth_date=fecha, color=color,
                                      personality=personality, size=size, photo=photo, race_id=race)
         new_dog.save()
         return redirect('vista_listar_dog')
+
+
+class AdminListarRace(View):
+    def get(self, request):
+        races = Race.objects.all()
+        pk = self.request.user
+        usuario = Person.objects.get(person_id=pk)
+        return render(request, 'Administrador/Dog/races.html', {'races': races, 'usuario': usuario})
+
+
+class AdminRegistroRace(View):
+    def post(self, request):
+        name = request.POST['race_can']
+        race = Race.objects.create(name=name)
+        return redirect('vista_listar_race')

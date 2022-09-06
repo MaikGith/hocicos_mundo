@@ -1,0 +1,69 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class = "container-xxl py-5">
+        <div class = "container ">
+            <div class = "row g-0 gx-5 align-items-end ">
+                <div class = "col-lg-12">
+                    <div class = "text-start mx-auto mb-5 wow slideInLeft " data-wow-delay = "0.1s">
+                        <h1 class = "mb-3 fontnav">Adoptame, necesito un hogar</h1>
+                        <p class = "fontnav">A cambio te llevarás un amor incondicional y nunca te dejaré solo</p>
+                    </div>
+                </div>
+            </div>
+            <div class = "tab-content">
+                <div id = "tab-1" class = "tab-pane fade show p-0 active">
+                    <div class = "row g-4">
+                        {% for dog in dogs %}
+                            <div class = "col-lg-4 col-md-6 wow fadeInUp" data-wow-delay = "0.1s">
+                                <div class = "property-item rounded overflow-hidden">
+                                    <div class = "position-relative overflow-hidden">
+                                        <img style = "width: 550px; height: 350px" class = "img-fluid"
+                                             src = "{{ dog.photo.url }}"
+                                             alt = "">
+                                        <div class = "text-center position-absolute start-0 top-50 pt-5">
+                                            <div class = "row">
+                                                <button class = "btn btn-sm btn-primary mb-1">Adoptar</button>
+                                                <button class = "btn btn-sm btn-success text-white">
+                                                    Apadrinar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class = "bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            {{ dog.name }}
+                                        </div>
+                                    </div>
+                                    <div class = "p-4 pb-1 mb-0" style = "background-color: #3db8ed">
+                                        <h5 class = "text-white mb-3">Raza: {{ dog.race.name }}</h5>
+                                        <h5 class = "d-block h5 mb-2" href = "">Descripción</h5>
+                                        <p>
+                                            <i class = "text-white">
+                                                {{ dog.personality }}
+                                            </i>
+                                        </p>
+                                    </div>
+                                    <div class = "d-flex border-top">
+                                        <small class = "flex-fill text-center border-end py-2"><i
+                                                class = "text-primary me-2"></i>{{ dog.color }}
+                                        </small>
+                                        <small
+                                                {% if dog.sex == "Macho" %}
+                                                    style = "background-color: #15a097; color: white;"
+                                                {% else %}
+                                                    style = "background-color: deeppink; color: white;"
+                                                {% endif %}
+                                                    class = "flex-fill text-center border-end py-2"><i
+                                                class = "me-2"></i>{{ dog.sex }}</small>
+                                        <small class = "flex-fill text-center py-2"><i
+                                                class = "text-primary me-2"></i>{{ dog.size }}</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

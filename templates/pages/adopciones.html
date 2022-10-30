@@ -13,48 +13,49 @@
             <div class = "tab-content">
                 <div id = "tab-1" class = "tab-pane fade show p-0 active">
                     <div class = "row g-4">
-                        {% for dog in dogs %}
+                        {% for can in canes %}
                             <div class = "col-lg-4 col-md-6 wow fadeInUp" data-wow-delay = "0.1s">
                                 <div class = "property-item rounded overflow-hidden">
                                     <div class = "position-relative overflow-hidden">
                                         <img style = "width: 550px; height: 350px" class = "img-fluid"
-                                             src = "{{ dog.photo.url }}"
+                                             src = "{{ can.foto.url }}"
                                              alt = "">
                                         <div class = "text-center position-absolute start-0 top-50 pt-5">
                                             <div class = "row">
                                                 <button class = "btn btn-sm btn-primary mb-1">Adoptar</button>
-                                                <button class = "btn btn-sm btn-success text-white">
+                                                <a href = "{% url 'vista_donaciones' %}"
+                                                   class = "btn btn-sm btn-success text-white">
                                                     Apadrinar
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                         <div class = "bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
-                                            {{ dog.name }}
+                                            {{ can.nombre }}
                                         </div>
                                     </div>
                                     <div class = "p-4 pb-1 mb-0" style = "background-color: #3db8ed">
-                                        <h5 class = "text-white mb-3">Raza: {{ dog.race.name }}</h5>
+                                        <h5 class = "text-white mb-3">Raza: {{ can.raza.nombre }}</h5>
                                         <h5 class = "d-block h5 mb-2" href = "">Descripción</h5>
                                         <p>
                                             <i class = "text-white">
-                                                {{ dog.personality }}
+                                                {{ can.personalidad }}
                                             </i>
                                         </p>
                                     </div>
                                     <div class = "d-flex border-top">
                                         <small class = "flex-fill text-center border-end py-2"><i
-                                                class = "text-primary me-2"></i>{{ dog.color }}
+                                                class = "text-primary me-2"></i>{{ can.color }}
                                         </small>
                                         <small
-                                                {% if dog.sex == "Macho" %}
+                                                {% if can.sexo == "Macho" %}
                                                     style = "background-color: #15a097; color: white;"
                                                 {% else %}
                                                     style = "background-color: deeppink; color: white;"
                                                 {% endif %}
                                                     class = "flex-fill text-center border-end py-2"><i
-                                                class = "me-2"></i>{{ dog.sex }}</small>
+                                                class = "me-2"></i>{{ can.sexo }}</small>
                                         <small class = "flex-fill text-center py-2"><i
-                                                class = "text-primary me-2"></i>{{ dog.size }}</small>
+                                                class = "text-primary me-2"></i>{{ can.altura }}</small>
                                     </div>
 
                                 </div>

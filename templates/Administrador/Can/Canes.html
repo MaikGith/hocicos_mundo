@@ -1,4 +1,4 @@
-{% extends 'Administrador/admin.html' %}
+{% extends 'Administrador/administrador.html' %}
 {% load static %}
 {% block contenido %}
     <div>
@@ -16,11 +16,11 @@
                         <span>Registrar can</span>
                     </button>
                     <!-- Contenido del modal -->
-                    <form action = "{% url 'vista_registrar_dog' %}" method = "post" enctype = "multipart/form-data">
+                    <form action = "{% url 'vista_registrar_can' %}" method = "post" enctype = "multipart/form-data">
                         {% csrf_token %}
                         <div class = "modal fade" id = "modal-subscribe" tabindex = "-1" role = "dialog"
                              aria-labelledby = "modal-subscribe" aria-hidden = "true">
-                            <div class = "modal-dialog modal-tertiary modal-dialog-centered modal-xl" role = "document">
+                            <div class = "modal-dialog modal-info modal-dialog-centered modal-xl" role = "document">
                                 <div class = "modal-content bg-dark text-white">
                                     <div class = "modal-header">
                                         <button type = "button" class = "btn-close btn-close-white text-white"
@@ -41,15 +41,6 @@
                                                     <label>Nombre del Can</label> <span style = "color: gold">*</span>
                                                     <input type = "text" class = "form-control" name = "nombre_can"
                                                            autocomplete = "off" required>
-                                                </div>
-                                                <div class = "mb-3">
-                                                    <label class = "my-1 me-2" for = "country">Especie</label>
-                                                    <span style = "color: gold">*</span>
-                                                    <select class = "form-select" name = "especie_can">
-                                                        <option selected>Seleccionar opción</option>
-                                                        <option>Perro</option>
-                                                        <option>Gato</option>
-                                                    </select>
                                                 </div>
                                                 <div class = "mb-3">
                                                     <label class = "my-1 me-2" for = "country">Sexo</label>
@@ -128,7 +119,7 @@
     </div>
     <div class = "card border-0 shadow mb-4">
         <div class = "card-body">
-            <form action = "{% url 'vista_listar_dog' %}" method = "get">
+            <form action = "{% url 'vista_listar_can' %}" method = "get">
                 <div class = "row mb-2 justify-content-end">
                     <div class = "col-6 col-sm-5 col-md-4 text-end">
                         <input class = "form-control d-inline" type = "text" name = "search" autocomplete = "off"
@@ -143,26 +134,40 @@
                 <table class = "table table-centered table-nowrap mb-0 rounded">
                     <thead class = "thead-light">
                     <tr class = "text-center">
-                        <th class = "border-0 rounded-start">#</th>
-                        <th class = "border-0">Nombre</th>
+                        <th class = "border-0 rounded-start">Nombre</th>
                         <th class = "border-0">Raza</th>
                         <th class = "border-0">Sexo</th>
+                        <th class = "border-0 ">Esterilización</th>
                         <th class = "border-0">Foto</th>
                         <th class = "border-0">Opciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for dog in dogs %}
+                    {% for can in canes %}
                         <tr class = "text-center">
-                            <td>{{ dog.id }}</td>
-                            <td>{{ dog.name }}</td>
-                            <td>{{ dog.race.name }}</td>
-                            <td>{{ dog.sex }}</td>
-                            <td><img class = "rounded-pill" src = "{{ dog.photo.url }}" height = "40" width = "40"
+                            <td>{{ can.nombre }}</td>
+                            <td>{{ can.id_raza.nombre }}</td>
+                            <td>{{ can.sexo }}</td>
+                            <td>
+                                {% if can.esterilizado %}
+                                    <button onclick = "abrir_modal_editar_esterilizacion('{% url 'vista_editar_esterilizacion' can.id %}')"
+                                            class = "btn btn-sm btn-success rounded-circle text-white">Ok
+                                    </button>
+                                {% else %}
+                                    <button onclick = "abrir_modal_registrar_esterilizacion('{% url 'vista_registrar_esterilizacion' can.id %}')"
+                                            class = "btn btn-sm btn-gray-50">Agregar
+                                    </button>
+                                {% endif %}
+                            </td>
+                            <td><img class = "rounded-pill" src = "{{ can.foto.url }}" height = "40" width = "40"
                                      alt = ""></td>
                             <td>
-                                <button class = "btn btn-sm btn-secondary">Editar</button>
-                                <button class = "btn btn-sm btn-danger">Eliminar</button>
+                                <button onclick = "abrir_modal_editar('{% url 'vista_editar_can' can.id %}')"
+                                        class = "btn btn-sm btn-secondary">Editar
+                                </button>
+                                <button onclick = "eliminar_can({{ can.id }})" class = "btn btn-sm btn-danger">
+                                    Eliminar
+                                </button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -171,6 +176,14 @@
             </div>
         </div>
     </div>
+    <div class = "modal fade" id = "editar" tabindex = "-1" role = "dialog" aria-labelledby = "modal-subscribe"
+         aria-hidden = "true"></div>
+    <div class = "modal fade" id = "registrarEsterilizacion" tabindex = "-1" role = "dialog"
+         aria-labelledby = "modal-subscribe"
+         aria-hidden = "true"></div>
+    <div class = "modal fade" id = "editarEsterilizacion" tabindex = "-1" role = "dialog"
+         aria-labelledby = "modal-subscribe"
+         aria-hidden = "true"></div>
 {% endblock %}
 
 {% block js_script %}
@@ -182,13 +195,52 @@
         $(function () {
             var availableTags = [
                 {% for raza in razas %}
-                    "{{raza.name}}",
+                    "{{raza.nombre}}",
                 {% endfor %}
             ];
             $("#tags").autocomplete({
                 source: availableTags
             });
         });
-    </script>
 
+        function abrir_modal_editar(url) {
+            $('#editar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+
+        function abrir_modal_registrar_esterilizacion(url) {
+            $('#registrarEsterilizacion').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+
+        function abrir_modal_editar_esterilizacion(url) {
+            $('#editarEsterilizacion').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+    <script src = "{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function eliminar_can(id) {
+            Swal.fire({
+                "title": "Deseas eliminar",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Eliminar",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/adopciones/eliminar/can/" + id + "/"
+                    }
+                })
+        }
+    </script>
 {% endblock %}

@@ -68,10 +68,10 @@
                 </div>
                 <div class = "d-block">
                     <h2 class = "h5 mb-3">Hola {{ user }}</h2>
-                    <a href = ""
+                    <a href = "{% url 'logout' %}"
                        class = "btn btn-secondary btn-sm d-inline-flex align-items-center">
                         <svg class = "icon icon-xxs me-1" fill = "none" stroke = "currentColor" viewBox = "0 0 24 24"
-                             xmlns = "http://www.w3.org/2000/svg">
+                             xmlns = "http://www.w3.org/2000/svg">|
                             <path stroke-linecap = "round" stroke-linejoin = "round" stroke-width = "2"
                                   d = "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                         </svg>
@@ -103,17 +103,52 @@
                 </a>
             </li>
             <li class = "nav-item">
-                <a href = "" class = "nav-link">
-                    <span class = "sidebar-icon">
-                        <img src = "{% static 'img/iconos/3.svg' %}" alt = "Bootstrap" width = "32"
-                             height = "32">
-                    </span>
+                <span class = "nav-link  collapsed  d-flex justify-content-between align-items-center"
+                      data-bs-toggle = "collapse" data-bs-target = "#submenu-usuarios">
+                    <span>
+                        <span class = "sidebar-icon">
+                            <img src = "{% static 'img/iconos/3.svg' %}" alt = "Bootstrap" width = "32"
+                                 height = "32">
+                        </span>
                     <span class = "sidebar-text">Usuarios</span>
-                </a>
+                </span>
+                <span class = "link-arrow">
+                    <svg class = "icon icon-sm" fill = "currentColor" viewBox = "0 0 20 20"
+                         xmlns = "http://www.w3.org/2000/svg">
+                        <path fill-rule = "evenodd"
+                              d = "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                              clip-rule = "evenodd"></path>
+                    </svg>
+                </span></span>
+                <div class = "multi-level collapse "
+                     role = "list" id = "submenu-usuarios" aria-expanded = "false">
+                    <ul class = "flex-column nav">
+                        <li class = "nav-item ">
+                            <a class = "nav-link" href = "{% url 'vista_listar_usuarios' %}">
+                                <span class = "sidebar-text">Administradores</span>
+                            </a>
+                        </li>
+                        <li class = "nav-item ">
+                            <a class = "nav-link" href = "{% url 'vista_listar_adoptantes' %}">
+                                <span class = "sidebar-text">Adoptadores</span>
+                            </a>
+                        </li>
+                        <li class = "nav-item ">
+                            <a class = "nav-link" href = "{% url 'vista_listar_padrinos' %}">
+                                <span class = "sidebar-text">Padrinos</span>
+                            </a>
+                        </li>
+                        <li class = "nav-item ">
+                            <a class = "nav-link" href = "{% url 'vista_listar_voluntarios' %}">
+                                <span class = "sidebar-text">Voluntarios</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class = "nav-item">
                 <span class = "nav-link  collapsed  d-flex justify-content-between align-items-center"
-                      data-bs-toggle = "collapse" data-bs-target = "#submenu-app1">
+                      data-bs-toggle = "collapse" data-bs-target = "#submenu-canes">
                     <span>
                         <span class = "sidebar-icon">
                             <img src = "{% static 'img/iconos/animals_dog.svg' %}" alt = "Bootstrap" width = "32"
@@ -130,23 +165,28 @@
                     </svg>
                 </span></span>
                 <div class = "multi-level collapse "
-                     role = "list" id = "submenu-app1" aria-expanded = "false">
+                     role = "list" id = "submenu-canes" aria-expanded = "false">
                     <ul class = "flex-column nav">
                         <li class = "nav-item ">
-                            <a class = "nav-link" href = "{% url 'vista_listar_dog' %}">
+                            <a class = "nav-link" href = "{% url 'vista_listar_can' %}">
                                 <span class = "sidebar-text">Admin de canes</span>
                             </a>
                         </li>
                         <li class = "nav-item ">
-                            <a class = "nav-link" href = "{% url 'vista_listar_race' %}">
+                            <a class = "nav-link" href = "{% url 'vista_listar_raza' %}">
                                 <span class = "sidebar-text">Razas</span>
+                            </a>
+                        </li>
+                        <li class = "nav-item ">
+                            <a class = "nav-link" href = "{% url 'vista_listar_vacuna' %}">
+                                <span class = "sidebar-text">Vacunas</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class = "nav-item ">
-                <a href = "" class = "nav-link">
+                <a href = "{% url 'vista_listar_perdidos' %}" class = "nav-link">
                     <span class = "sidebar-icon">
                         <img src = "{% static 'img/iconos/2.svg' %}" alt = "Bootstrap" width = "32"
                              height = "32">
@@ -176,12 +216,12 @@
                      role = "list" id = "submenu-app" aria-expanded = "false">
                     <ul class = "flex-column nav">
                         <li class = "nav-item ">
-                            <a class = "nav-link" href = "">
+                            <a class = "nav-link" href = "{% url 'vista_listar_adopciones' %}">
                                 <span class = "sidebar-text">Adoptadores</span>
                             </a>
                         </li>
                         <li class = "nav-item ">
-                            <a class = "nav-link" href = "">
+                            <a class = "nav-link" href = "{% url 'vista_listar_reuniones' %}">
                                 <span class = "sidebar-text">Reuniones</span>
                             </a>
                         </li>
@@ -221,7 +261,7 @@
                            data-bs-toggle = "dropdown" aria-expanded = "false">
                             <div class = "media d-flex align-items-center">
                                 <img class = "avatar rounded-circle" alt = "Image placeholder"
-                                     src = "{{ usuario.photo.url }}">
+                                     src = "{{ user.foto.url }}">
                                 <div class = "media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                     <span class = "mb-0 font-small fw-bold text-gray-900">{{ user }}</span>
                                 </div>
@@ -238,7 +278,8 @@
                                 Mi Perfil
                             </a>
                             <div role = "separator" class = "dropdown-divider my-1"></div>
-                            <a class = "dropdown-item d-flex align-items-center" href = "#">
+                            <a class = "dropdown-item d-flex align-items-center"
+                               href = "{% url 'vista_logout_usuarios' %}">
                                 <svg class = "dropdown-icon text-danger me-2" fill = "none" stroke = "currentColor"
                                      viewBox = "0 0 24 24" xmlns = "http://www.w3.org/2000/svg">
                                     <path stroke-linecap = "round" stroke-linejoin = "round" stroke-width = "2"
@@ -283,9 +324,10 @@
     {% endblock %}
 </main>
 <!-- Core -->
-{% block js_script %}
-
-{% endblock %}
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+<link href = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+      rel = "stylesheet" type = "text/css"/>
 <script src = "{% static 'css/css-admin/vendor/@popperjs/core/dist/umd/popper.min.js' %}"></script>
 <script src = "{% static 'css/css-admin/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 <!-- Vendor JS -->
@@ -300,7 +342,7 @@
 <!-- Datepicker -->
 <script src = "{% static 'css/css-admin/vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
 <!-- Sweet Alerts 2 -->
-<script src = "{% static 'css/css-admin/vendor/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
+<script src = "{% static 'js/js-admin/sweetalert2@11.js' %}"></script>
 <!-- Vanilla JS Datepicker -->
 <script src = "{% static 'css/css-admin/vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
 <!-- Notyf -->
@@ -313,5 +355,41 @@
 <script async defer src = "https://buttons.github.io/buttons.js"></script>
 <!-- Moment JS -->
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <script>
+                Swal.fire({
+                    "title": "{{ message }}",
+                    "icon": "error",
+                })
+            </script>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <script>
+                Swal.fire({
+                    "title": "{{ message }} correctamente",
+                    "icon": "success",
+                })
+            </script>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+            <script>
+                Swal.fire({
+                    "title": "{{ message }}",
+                    "icon": "warning",
+                })
+            </script>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            <script>
+                Swal.fire({
+                    "title": "{{ message }} correctamente",
+                    "icon": "info",
+                })
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% block js_script %}
+
+{% endblock %}
 </body>
 </html>

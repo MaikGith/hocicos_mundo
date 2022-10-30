@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+    <meta http-equiv = "Content-Type" content = "text/html; charset=utf-8"/>
+    <!-- Primary Meta Tags -->
+    <title>Registro</title>
+    <meta name = "viewport" content = "width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name = "title" content = "Volt Premium Bootstrap Dashboard - Sign up page">
+    <meta name = "author" content = "Themesberg">
+    <meta name = "description"
+          content = "Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
+    <meta name = "keywords"
+          content = "bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, themesberg, themesberg dashboard, themesberg admin dashboard"/>
+    <link rel = "canonical" href = "https://themesberg.com/product/admin-dashboard/volt-premium-bootstrap-5-dashboard">
+
+    <!-- Open Graph / Facebook -->
+    <meta property = "og:type" content = "website">
+    <meta property = "og:url" content = "https://demo.themesberg.com/volt-pro">
+    <meta property = "og:title" content = "Volt Premium Bootstrap Dashboard - Sign up page">
+    <meta property = "og:description"
+          content = "Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
+    <meta property = "og:image"
+          content = "https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-pro-bootstrap-5-dashboard/volt-pro-preview.jpg">
+
+    <!-- Twitter -->
+    <meta property = "twitter:card" content = "summary_large_image">
+    <meta property = "twitter:url" content = "https://demo.themesberg.com/volt-pro">
+    <meta property = "twitter:title" content = "Volt Premium Bootstrap Dashboard - Sign up page">
+    <meta property = "twitter:description"
+          content = "Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
+    <meta property = "twitter:image"
+          content = "https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-pro-bootstrap-5-dashboard/volt-pro-preview.jpg">
+
+    <!-- Favicon -->
+    <link rel = "apple-touch-icon" sizes = "120x120" href = "../../assets/img/favicon/apple-touch-icon.png">
+    <link rel = "icon" type = "image/png" sizes = "32x32" href = "../../assets/img/favicon/favicon-32x32.png">
+    <link rel = "icon" type = "image/png" sizes = "16x16" href = "../../assets/img/favicon/favicon-16x16.png">
+    <link rel = "manifest" href = "../../assets/img/favicon/site.webmanifest">
+    <link rel = "mask-icon" href = "../../assets/img/favicon/safari-pinned-tab.svg" color = "#ffffff">
+    <meta name = "msapplication-TileColor" content = "#ffffff">
+    <meta name = "theme-color" content = "#ffffff">
+    <link type = "text/css" href = "{% static 'css/css-admin/vendor/sweetalert2/dist/sweetalert2.min.css' %}"
+          rel = "stylesheet">
+    <link type = "text/css" href = "{% static 'css/css-admin/vendor/notyf/notyf.min.css' %}" rel = "stylesheet">
+    <link type = "text/css" href = "{% static 'css/css-admin/volt.css' %}" rel = "stylesheet">
+</head>
+<body>
+<main>
+    <section class = "vh-xl-100 mt-lg-0 bg-soft d-flex align-items-center">
+        <div class = "container-fluid">
+            <div class = "row justify-content-center"
+                 style = "background-image: url('{% static 'img/img-index/fondo3.jpg' %}');
+                         min-height: 100vh;
+                         background-size: cover;
+                         background-repeat: no-repeat;">
+                <div class = "col-12 d-flex p-2 align-items-center justify-content-center">
+                    <div class = "bg-white shadow border-0 rounded border-light p-4 w-100 fmxw-500"
+                         style = "background: linear-gradient(rgb(252,120,66), rgb(255,239,185));">
+                        <div class = "text-center text-md-center mt-md-0">
+                            <h1 class = "mb-0 h3">Registrar Administrador</h1>
+                        </div>
+                        <form action = "{% url 'vista_registrar_usuarios' %}" method = "post" class = "mt-4">
+                            {% csrf_token %}
+                            <div class = "form-group mb-4">
+                                <div class = "input-group">
+                                        <span class = "input-group-text" id = "basic-addon1">
+                                            <svg class = "icon icon-xs text-gray-600" fill = "currentColor"
+                                                 viewBox = "0 0 20 20" xmlns = "http://www.w3.org/2000/svg"><path
+                                                    d = "M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path
+                                                    d = "M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                                        </span>
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                            <div class = "form-group mb-4">
+                                <div class = "input-group">
+                                        <span class = "input-group-text"
+                                              id = "basic-addon2">
+                                                                <svg version = "1.1" id = "Capa_1"
+                                                                     xmlns = "http://www.w3.org/2000/svg"
+                                                                     xmlns:xlink = "http://www.w3.org/1999/xlink"
+                                                                     x = "0px" y = "0px"
+                                                                     width = "20px" height = "20px"
+                                                                     viewBox = "0 0 510 510"
+                                                                     style = "enable-background:new 0 0 510 510;"
+                                                                     xml:space = "preserve">
+<g>
+	<g id = "account-circle">
+		<path d = "M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M255,76.5
+			c43.35,0,76.5,33.15,76.5,76.5s-33.15,76.5-76.5,76.5c-43.35,0-76.5-33.15-76.5-76.5S211.65,76.5,255,76.5z M255,438.6
+			c-63.75,0-119.85-33.149-153-81.6c0-51,102-79.05,153-79.05S408,306,408,357C374.85,405.45,318.75,438.6,255,438.6z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+                                                                </span>
+                                    {{ form.nombres }}
+                                </div>
+                            </div>
+                            <div class = "form-group mb-4">
+                                <div class = "input-group">
+                                        <span class = "input-group-text"
+                                              id = "basic-addon2">
+                                                                <svg version = "1.1" id = "Capa_1"
+                                                                     xmlns = "http://www.w3.org/2000/svg"
+                                                                     xmlns:xlink = "http://www.w3.org/1999/xlink"
+                                                                     x = "0px" y = "0px"
+                                                                     width = "20px" height = "20px"
+                                                                     viewBox = "0 0 510 510"
+                                                                     style = "enable-background:new 0 0 510 510;"
+                                                                     xml:space = "preserve">
+<g>
+	<g id = "account-circle">
+		<path d = "M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M255,76.5
+			c43.35,0,76.5,33.15,76.5,76.5s-33.15,76.5-76.5,76.5c-43.35,0-76.5-33.15-76.5-76.5S211.65,76.5,255,76.5z M255,438.6
+			c-63.75,0-119.85-33.149-153-81.6c0-51,102-79.05,153-79.05S408,306,408,357C374.85,405.45,318.75,438.6,255,438.6z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+                                                                </span>
+                                    {{ form.apellidos }}
+                                </div>
+                            </div>
+                            <div class = "form-group">
+                                <div class = "form-group mb-4">
+                                    <div class = "input-group">
+                                            <span class = "input-group-text" id = "basic-addon2">
+                                                <svg class = "icon icon-xs text-gray-600" fill = "currentColor"
+                                                     viewBox = "0 0 20 20" xmlns = "http://www.w3.org/2000/svg"><path
+                                                        fill-rule = "evenodd"
+                                                        d = "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                                        clip-rule = "evenodd"></path></svg>
+                                            </span>
+                                        {{ form.password }}
+                                    </div>
+                                </div>
+                                <div class = "form-group mb-4">
+                                    <div class = "input-group">
+                                            <span class = "input-group-text" id = "basic-addon2">
+                                                <svg class = "icon icon-xs text-gray-600" fill = "currentColor"
+                                                     viewBox = "0 0 20 20" xmlns = "http://www.w3.org/2000/svg"><path
+                                                        fill-rule = "evenodd"
+                                                        d = "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                                        clip-rule = "evenodd"></path></svg>
+                                            </span>
+                                        {{ form.password1 }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if form.errors %}
+                                {% for e in form %}
+                                    {% for error in e.errors %}
+                                        <ul class = "alert alert-danger" style = "list-style: none;">
+                                            <li>{{ error }}</li>
+                                        </ul>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endif %}
+                            <div class = "d-grid">
+                                <button type = "submit" class = "btn btn-gray-800">Registrar</button>
+                            </div>
+                        </form>
+                        <div class = "d-flex justify-content-center align-items-center mt-4">
+                                <span class = "fw-normal">
+                                    <a href = "./sign-in.html" class = "fw-bold">Volver</a>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script src = "{% static 'css/css-admin/vendor/@popperjs/core/dist/umd/popper.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/nouislider/distribute/nouislider.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/chartist/dist/chartist.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+<script src = "{% static 'css/css-admin/vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/notyf/notyf.min.js' %}"></script>
+<script src = "{% static 'css/css-admin/vendor/simplebar/dist/simplebar.min.js' %}"></script>
+<script async defer src = "https://buttons.github.io/buttons.js"></script>
+<script src = "{% static 'js/js-admin/volt.js' %}"></script>
+
+</body>
+</html>

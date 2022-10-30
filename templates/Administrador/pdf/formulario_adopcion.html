@@ -1,0 +1,235 @@
+{% load static %}
+<!doctype html>
+<html lang = "es">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport"
+          content = "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv = "X-UA-Compatible" content = "ie=edge">
+    <title>Certificado de adopción</title>
+</head>
+<style>
+    @page {
+        size: 315mm 445.5mm;
+    }
+
+    body {
+        width: 816px;
+        transform: scale(0.66);
+        transform-origin: 0 0;
+    }
+</style>
+<body>
+<div class = "row justify-content-between">
+    <div class = "col-3">
+        <img style = "height: 200px; width: 300px"
+             class = "p-0"
+             src = "{% static 'img/img-index/Hocicosfondo.png' %}"
+             alt = "">
+
+    </div>
+    <div class = "col-9">
+        <br><br>
+        <h1 class = "text-center"><b>Certificado de adopción responsable</b></h1>
+    </div>
+</div>
+<br><br>
+<div>
+    <p style = "font-size: 19px">Cosas que usted debe tomar en cuenta a la hora de adoptar un animalito de este
+                                 refugio:</p>
+</div>
+<br>
+<div>
+    <p style = "font-size: 19px" class = "text-justify">
+        <b>1.</b> Adoptar a un animalito es una responsabilidad de la que usted debe estar seguro/a. Una
+                  responsabilidad de por lo menos 15 años, donde tiene que tomar en cuenta que no puede
+                  devolver al animalito adoptado. Ninguna excusa es válida para retornar a un perrito
+                  después de las 2 semanas de prueba. <span style = "color: red;">Además de ser una responsabilidad es un gasto y
+                  uno debe tener un presupuesto para comida, vacunas y cualquier necesidad del animalito.</span>
+        <br>
+                  *Si usted tiene niños en casa primero debe percatarse de que los niños puedan convivir con mascotas,
+                  estén educados para tratarlos con el debido respeto y no tengan ninguna alergia*</p>
+</div>
+<br>
+<div>
+    <p style = "font-size: 19px" class = "text-justify">
+        <b>2.</b> No olviden que la personalidad que el cachorro adquiera, depende de ustedes, ustedes tienen que
+                  educarlo, sacarlo a pasear, enseñarle lo que está bien o está mal. El perrito es como un niño y
+                  es su deber criarlo de una manera correcta. No por eso se abandona al animalito que supuestamente
+                  es parte de su familia. Si el animalito tiene mala conducta usted debe hacer todo lo posible por
+                  ayudarlo llevándolo a centros de adiestramiento o a etólogos que puedan ayudar con problema.
+    </p>
+</div>
+<br>
+<div>
+    <p style = "font-size: 19px" class = "text-justify">
+        <b>3.</b> No se olviden avisarnos ante cualquier contingencia, nosotros somos sus amigos y buscamos el bienestar
+                  de nuestros animalitos, si se salió, se perdió, se enfermó o cualquier suceso que pueda darse,
+                  nosotros
+                  podemos ayudarlo/la, confíe en nosotros.
+    </p>
+</div>
+<br>
+<div>
+    <p style = "font-size: 19px" class = "text-justify">
+        <b>4.</b> Si cambia de número de teléfono o de dirección por favor le rogamos que nos informe, después la
+                  preocupación al no encontrarlos a ustedes o al perrito crece y podemos estar tomando las medidas
+                  equivocadas.
+    </p>
+</div>
+<br>
+<div>
+    <p style = "font-size: 19px" class = "text-justify">
+        <b>5.</b> No olvide que usted está firmando un compromiso de adopción responsable, en caso de que algo malo
+                  sucediera nos da el permiso de publicar en las redes sociales y hacer la respectiva denuncia si lo
+                  consideramos necesario.
+    </p>
+</div>
+<br>
+<div>
+    <p style = "font-size: 19px" class = "text-justify">
+        <b>6.</b> <span style = "color: red;">Está PROHIBIDO entregar al animal a otra familia, si por una fuerza mayor usted ya no podría hacerse
+                  cargo, le rogamos que nos lo informe, así podemos buscar un nuevo hogar para el mismo.</span>
+    </p>
+</div>
+<br>
+<div>
+    <p style = "font-size: 19px" class = "text-justify">
+        <b>7.</b> Se realiza un seguimiento mediante fotografías y visitas cada seis meses. (2 veces al año)
+                  Este nuevo integrante de su familia merece respeto, responsabilidad y mucho amor. Si el animalito que
+                  le estamos entregando aún no está esterilizado usted se compromete a hacerlo esterilizar en una fecha
+                  acordada o antes de sus 7 meses. Debe recibir sus vacunas de manera anual (Octavalente, triplefelina,
+                  antirrábica).
+        <br><br>
+                  Si usted está seguro de la adopción tomando en cuenta los puntos anteriores, le invitamos a llenar con
+                  nosotros los siguientes datos:
+    </p>
+</div>
+<br><br><br><br><br><br><br>
+<div>
+    <h1 class = "text-center"><b>Datos del animal</b></h1>
+    <div class = "row justify-content-between">
+        <div class = "col-6">
+            <table class = "table table-bordered">
+                <tbody class = "text-center">
+                <tr>
+                    <th>Nombre</th>
+                    <td>{{ can.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Especie</th>
+                    <td>Perro</td>
+                </tr>
+                <tr>
+                    <th>Sexo</th>
+                    <td>{{ can.sexo }}</td>
+                </tr>
+                <tr>
+                    <th>Casta</th>
+                    <td>{{ can.id_raza.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Edad</th>
+                    <td>{{ edad }} años</td>
+                </tr>
+                <tr>
+                    <th>Color</th>
+                    <td>{{ can.color }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class = "col-6">
+            <table class = "table table-bordered">
+                <tbody class = "text-center">
+                {% for vacuna in vacunas %}
+                    <tr>
+                        <th>{{ vacuna.vacuna.nombre }}</th>
+                        <td>Fecha: {{ vacuna.fecha|date:'d-m-Y' }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th>Esterilización</th>
+                    <td>{{ esterilizacion.n_tattoo }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <h2 class = "text-center"><b>Datos Personales</b></h2>
+    <div class = "row justify-content-center">
+        <div class = "col-12">
+            <table class = "table table-bordered">
+                <tbody class = "text-center">
+                <tr>
+                    <th>Nombre</th>
+                    <td>{{ usuario.nombres }} {{ usuario.apellidos }}</td>
+                </tr>
+                <tr>
+                    <th>Carnet de identidad</th>
+                    <td>{{ usuario.ci }}</td>
+                </tr>
+                <tr>
+                    <th>Dirección</th>
+                    <td>{{ usuario.direccion }}</td>
+                </tr>
+                <tr>
+                    <th>Teléfono celular</th>
+                    <td>{{ usuario.celular }}</td>
+                </tr>
+                <tr>
+                    <th>Facebook</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Números de referencia</th>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+<div class = "container-fluid">
+    <p style = "font-size: 19px;" class = "text-justify">
+        Firmando este documento de compromiso de adopción responsable, usted se compromete a cuidar
+        y a mantener en buen estado al animal que adoptó, si usted incumple estos requisitos,
+        HOCICOS DEL MUNDO volverá a hacerse cargo del animal y se realizará la respectiva
+        denuncia pública en las redes sociales y en POFOMA.
+    </p>
+    <br>
+    <p style = "font-size: 19px;" class = "text-justify">
+        Yo...................................................................................................................................................................Mayor
+        de edad
+        <br>
+        Con C.I. ......................................................................................................
+        <br>
+        Acepto los términos y condiciones de este compromiso.
+        <br>
+        En señal de conformidad, firmo al pie del presente documento.
+    </p>
+
+    <br>
+    <br>
+    <span style = "font-size: 19px;"> La Paz, {{ can.fecha_adopcion }}</span>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-6 text-center">
+            <p style = "font-size: 21px">ADOPTANTE</p>
+        </div>
+        <div class = "col-6 text-center">
+            <p style = "font-size: 21px">HOCICOS DEL MUNDO</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

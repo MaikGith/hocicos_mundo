@@ -1,0 +1,184 @@
+{% extends 'Administrador/administrador.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class = "row justify-content-center">
+            <div class = "col-6 text-end">
+                <h2 class = "display-3">Lista de canes perdidos</h2>
+            </div>
+            <div class = "col-6 text-end">
+                <div class = "pt-1 pb-1 ps-1 m-1">
+                    <button class = "btn btn-tertiary btn-sm d-inline-flex align-items-center" type = "button"
+                            data-bs-toggle = "modal"
+                            data-bs-target = "#modal-subscribe">
+                        <img src = "{% static 'img/iconos/raza2.png' %}" height = "30" width = "30"
+                             alt = "">
+                        <span class = "ms-1">Registrar raza</span>
+                    </button>
+                    <!-- Contenido del modal -->
+                    <form action = "{% url 'vista_registrar_perdidos' %}" method = "post">
+                        {% csrf_token %}
+                        <div class = "modal fade" id = "modal-subscribe" tabindex = "-1" role = "dialog"
+                             aria-labelledby = "modal-subscribe" aria-hidden = "true">
+                            <div class = "modal-dialog modal-tertiary modal-dialog-centered modal-open"
+                                 role = "document">
+                                <div class = "modal-content bg-dark text-white">
+                                    <div class = "modal-header">
+                                        <button type = "button" class = "btn-close btn-close-white text-white"
+                                                data-bs-dismiss = "modal"
+                                                aria-label = "Close"></button>
+                                    </div>
+                                    <div class = "modal-body text-center py-3">
+                                        <div class = "row">
+                                            <div class = "text-center">
+                                                <span class = "display-4">Seleccionar perdido</span>
+                                                <img src = "{% static 'img/iconos/raza2.png' %}" height = "60"
+                                                     width = "60"
+                                                     alt = "">
+                                            </div>
+                                        </div>
+                                        <div class = "row mb-4">
+                                            <div class = "col-lg-12 col-sm-12">
+                                                <div class = "mb-3">
+                                                    <label></label> <span style = "color: gold">* Seleccionar can</span>
+                                                    <input type = "text" class = "form-control" name = "txtCan"
+                                                           id = "tags" required>
+                                                </div>
+                                                <div class = "mb-3">
+                                                    <label></label> <span
+                                                        style = "color: gold">* Fecha de desaparición</span>
+                                                    <input type = "date" class = "form-control" name = "txtFecha"
+                                                           autocomplete = "off" required>
+                                                </div>
+                                                <div class = "mb-3">
+                                                    <label></label> <span style = "color: gold">* Comentario</span>
+                                                    <textarea class = "form-control" placeholder = "Detalles...."
+                                                              name = "txtComentario" rows = "5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class = "modal-footer z-2 mx-auto text-center">
+                                        <div class = "row">
+                                            <div class = "col-6">
+                                                <button class = "btn btn-danger" data-bs-dismiss = "modal">Cancelar
+                                                </button>
+                                            </div>
+                                            <div class = "col-6">
+                                                <button type = "submit" class = "btn btn-success">Registrar perdido
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "card border-0 shadow mb-4">
+        <div class = "card-body">
+            <form action = "{% url 'vista_listar_perdidos' %}" method = "get">
+                <div class = "row mb-2 justify-content-end">
+                    <div class = "col-6 col-sm-5 col-md-4 text-end">
+                        <input class = "form-control d-inline" type = "text" name = "search" autocomplete = "off"
+                               value = "{{ request.GET.search }}">
+                    </div>
+                    <div class = "col-3 col-sm-auto col-md-auto text-end">
+                        <button class = "btn btn-facebook" type = "submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <div class = "table-responsive">
+                <table class = "table table-centered table-nowrap mb-0 rounded">
+                    <thead class = "thead-light">
+                    <tr class = "text-center">
+                        <th class = "border-0 rounded-start">Nombre</th>
+                        <th class = "border-0">Raza</th>
+                        <th class = "border-0">Sexo</th>
+                        <th class = "border-0">Foto</th>
+                        <th class = "border-0">Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for perdido in perdidos %}
+                        <tr class = "text-center">
+                            <td>{{ perdido.can_perdido.nombre }}</td>
+                            <td>{{ perdido.can_perdido.id_raza.nombre }}</td>
+                            <td>{{ perdido.can_perdido.sexo }}</td>
+                            <td><img class = "rounded-pill" src = "{{ perdido.can_perdido.foto.url }}" height = "40"
+                                     width = "40"
+                                     alt = ""></td>
+                            <td>
+                                <button onclick = "encontrado_can({{ perdido.can_perdido_id }})"
+                                        class = "btn btn-sm btn-danger">
+                                    ¿Encontrado?
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class = "modal fade" id = "editar" tabindex = "-1" role = "dialog" aria-labelledby = "modal-subscribe"
+         aria-hidden = "true"></div>
+    <div class = "modal fade" id = "registrar" tabindex = "-1" role = "dialog" aria-labelledby = "modal-subscribe"
+         aria-hidden = "true"></div>
+{% endblock %}
+
+{% block js_script %}
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel = "stylesheet" type = "text/css"/>
+    <script type = "text/javascript">
+        $(function () {
+            var availableTags = [
+                {% for can in canes %}
+                    "{{can.nombre}}",
+                {% endfor %}
+            ];
+            $("#tags").autocomplete({
+                source: availableTags
+            });
+        });
+
+        function abrir_modal_editar(url) {
+            $('#editar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+
+        function abrir_modal_registrar_perdido(url) {
+            $('#registrar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+    <script src = "{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function encontrado_can(id) {
+            Swal.fire({
+                "title": "¿Se encontró al can?",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, no se encontró",
+                "confirmButtonText": "Si, si se encontró",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/perdidos/encontrado/" + id + "/"
+                    }
+                })
+        }
+    </script>
+{% endblock %}

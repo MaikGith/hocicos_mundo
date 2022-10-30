@@ -1,0 +1,120 @@
+{% extends 'Administrador/administrador.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class = "col-12 text-end">
+            <a href = "{% url 'vista_listar_adopciones' %}" class = "btn btn-facebook" type = "button">Volver</a>
+        </div>
+        <br>
+        <div class = "card border-0 shadow mb-0 col-sm-12">
+            <div class = "card-body">
+                <div class = "row">
+                    <div class = "col-3 text-center">
+                        <img class = "rounded-pill"
+                             height = "100px"
+                             width = "100px"
+                             src = "{{ adoptador.usuario.foto.url }}"
+                             alt = "">
+                    </div>
+                    <div class = "col-9">
+                        <div class = "row">
+                            <div class = "col-12">
+                                <b>Adoptador:</b> {{ adoptador.usuario.nombres }} {{ adoptador.usuario.apellidos }}
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col-12">
+                                <b>Dirección de domicilio:</b> {{ adoptador.usuario.direccion }}
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col-12">
+                                <b>Celular:</b> {{ adoptador.usuario.celular }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class = "card border-0 shadow mb-0 col-sm-12">
+        <div class = "card-body">
+            <div class = "table-responsive">
+                <table class = "table table-centered table-nowrap mb-0 rounded">
+                    <thead class = "thead-light">
+                    <tr class = "text-center">
+                        <th class = "border-0 rounded-start">Nombre del can</th>
+                        <th class = "border-0 ">Sexo</th>
+                        <th class = "border-0 ">Foto</th>
+                        <th class = "border-0 ">Carta de adopción</th>
+                        <th class = "border-0 rounded-end">Retirar la adopción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for can in canes %}
+                        <tr class = "text-center">
+                            <td>{{ can.nombre }}</td>
+                            <td>{{ can.sexo }}</td>
+                            <td>
+                                <img class = "col-12 col-sm-12 col-md-8 col-lg-6 rounded-pill"
+                                     src = "{{ can.foto.url }}"
+                                     alt = "">
+                            </td>
+                            <td>
+                                <a target = "_blank" href = "{% url 'vista_imprimir_pdf' can.id %}"
+                                   class = "btn btn-secondary btn-sm">Imprimir
+                                </a>
+                            </td>
+                            <td>
+                                <button onclick = "retirar_adopcion({{ can.id }})" class = "btn btn-danger btn-sm">
+                                    Retirar
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class = "modal fade" id = "registrar" tabindex = "-1" role = "dialog"
+         aria-labelledby = "modal-subscribe" aria-hidden = "true">
+    </div>
+{% endblock %}
+
+{% block js_script %}
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel = "stylesheet" type = "text/css"/>
+    <script type = "text/javascript">
+        function abrir_modal_registrar_adopcion(url) {
+            $('#registrar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+    <script src = "{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function retirar_adopcion(id) {
+            Swal.fire({
+                "title": "Deseas retirar la adopción",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, retirar la adopción",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/adopciones/eliminar/" + id + "/"
+                    }
+                })
+        }
+    </script>
+{% endblock %}

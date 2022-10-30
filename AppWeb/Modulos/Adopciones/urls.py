@@ -1,0 +1,30 @@
+from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path('listar/can/', AdminListarCan.as_view(), name='vista_listar_can'),
+    path('registrar/can/', AdminRegistroCan.as_view(), name='vista_registrar_can'),
+    path('editar/can/<int:pk>/', AdminEditarCan.as_view(), name='vista_editar_can'),
+    path('eliminar/can/<int:pk>/', AdminEliminarCan.as_view(), name='vista_eliminar_can'),
+    path('registrar/esterilizacion/<int:pk>/', AdminRegistrarEsterilizacion.as_view(),
+         name='vista_registrar_esterilizacion'),
+    path('editar/esterilizacion/<int:pk>/', AdminEditarEsterilizacion.as_view(),
+         name='vista_editar_esterilizacion'),
+    path('listar/raza/', AdminListarRaza.as_view(), name='vista_listar_raza'),
+    path('registrar/raza/', AdminRegistroRaza.as_view(), name='vista_registrar_raza'),
+    path('editar/raza/<int:pk>/', AdminEditarRaza.as_view(), name='vista_editar_raza'),
+    path('eliminar/raza/<int:pk>/', AdminEliminarRaza.as_view(), name='vista_eliminar_raza'),
+    path('listar/vacuna/', AdminListarVacuna.as_view(), name='vista_listar_vacuna'),
+    path('registrar/vacuna/', AdminRegistrarVacuna.as_view(), name='vista_registrar_vacuna'),
+    path('asignar/vacuna/<int:pk>/', AdminAsignarVacuna.as_view(), name='vista_asignar_vacuna'),
+    path('historial/vacuna/<int:pk>/', AdminHistorialVacuna.as_view(), name='vista_historial_vacuna'),
+    path('editar/vacuna/<int:pk>/', AdminEditarVacunaCan.as_view(), name='vista_editar_vacuna'),
+    path('eliminar/vacuna/<int:pk>/', AdminEliminarVacuna.as_view(), name='vista_eliminar_vacuna'),
+    path('listar/', AdminListarAdopciones.as_view(), name='vista_listar_adopciones'),
+    path('registrar/<int:pk>/', AdminRegistraAdopcion.as_view(), name='vista_registrar_adopciones'),
+    path('listar/a_cargo/<int:pk>/', AdminListarACargo.as_view(), name='vista_listar_a_cargo'),
+    path('eliminar/<int:pk>/', AdminEliminarAdopcion.as_view(), name='vista_eliminar_adopcion'),
+    path('pdf/imprimir/<int:pk>', AdminImprimirAdopcion.as_view(), name='vista_imprimir_pdf'),
+    path('listar/reuniones/', AdminListarReuniones.as_view(), name='vista_listar_reuniones'),
+    path('registrar/reuniones/<int:pk>', AdminRegistrarReuniones.as_view(), name='vista_registrar_reuniones'),
+]

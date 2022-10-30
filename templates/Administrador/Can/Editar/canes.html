@@ -1,0 +1,92 @@
+{% load static %}
+<form action = "{% url 'vista_editar_can' object.id %}" method = "post" enctype = "multipart/form-data">
+    {% csrf_token %}
+    <div class = "modal-dialog modal-info modal-dialog-centered modal-xl" role = "document">
+        <div class = "modal-content bg-dark text-white">
+            <div class = "modal-header">
+                <button type = "button" class = "btn-close btn-close-white text-white"
+                        data-bs-dismiss = "modal"
+                        aria-label = "Close"></button>
+            </div>
+            <div class = "modal-body text-center py-3">
+                <div class = "row">
+                    <div class = "text-center">
+                        <span class = "display-4">Datos del Can</span>
+                        <img src = "{% static 'img/iconos/1.svg' %}" height = "60" width = "60"
+                             alt = "">
+                    </div>
+                </div>
+                <div class = "row mb-4">
+                    <div class = "col-lg-4 col-sm-6">
+                        <div class = "mb-3">
+                            <label>Nombre del Can</label> <span style = "color: gold">*</span>
+                            {{ form.nombre }}
+                        </div>
+                        <div class = "mb-3">
+                            <label class = "my-1 me-2" for = "country">Sexo</label>
+                            <span style = "color: gold">*</span>
+                            {{ form.sexo }}
+                        </div>
+                        <div class = "mb-3">
+                            <label for = "textarea">Descripción de personalidad</label>
+                            <span style = "color: gold">*</span>
+                            {{ form.personalidad }}
+                        </div>
+                    </div>
+                    <div class = "col-lg-4 col-sm-6">
+                        <div class = "mb-3">
+                            <label for = "birthday">Fecha de nacimiento</label>
+                            <span style = "color: gold">*</span>
+                            <div class = "input-group">
+                                <input class = "form-control" type = "date" name = "txtFecha"
+                                       value = "{{ object.fecha_nacimiento|date:'Y-m-d' }}">
+                            </div>
+                        </div>
+                        <div class = "mb-3">
+                            <label>Raza del Can</label> <span style = "color: gold">*</span>
+                            <select type = "text" class = "form-select" name = "raza_can">
+                                <option>{{ object.id_raza.nombre }}</option>
+                                {% for raza in razas %}
+                                    {% if raza.nombre != object.id_raza.nombre %}
+                                        <option>{{ raza.nombre }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class = "mb-3">
+                            <label>Color del can</label>
+                            <span style = "color: gold">*</span>
+                            {{ form.color }}
+                        </div>
+                        <div class = "mb-3">
+                            <label class = "my-1 me-2" for = "country">Tamaño</label>
+                            <span style = "color: gold">*</span>
+                            {{ form.altura }}
+                        </div>
+                    </div>
+                    <div class = "col-lg-4 col-sm-6">
+                        <div class = "mb-3">
+                            <label for = "formFile" class = "form-label">Foto del can</label>
+                            <span style = "color: gold">*</span>
+                            <input class = "form-control" type = "file" name = "txtFoto">
+                            <br>
+                            <img class = "rounded-pill" src = "{{ object.foto.url }}" height = "200" width = "200">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "modal-footer z-2 mx-auto text-center">
+                <div class = "row">
+                    <div class = "col-lg-6">
+                        <button type = "button" class = "btn btn-danger" data-bs-dismiss = "modal">Cancelar
+                        </button>
+                    </div>
+                    <div class = "col-lg-6">
+                        <button type = "submit" class = "btn btn-success">Editar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

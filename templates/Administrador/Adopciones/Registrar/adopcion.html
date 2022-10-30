@@ -1,0 +1,59 @@
+{% load static %}
+<form action = "{% url 'vista_registrar_adopciones' adoptador.id %}" method = "post">
+    {% csrf_token %}
+    <div class = "modal-dialog modal-tertiary modal-dialog-centered modal-sm"
+         role = "document">
+        <div class = "modal-content bg-dark text-white">
+            <div class = "modal-header">
+                <button type = "button" class = "btn-close btn-close-white text-white"
+                        data-bs-dismiss = "modal"
+                        aria-label = "Close"></button>
+            </div>
+            <div class = "modal-body text-center py-3">
+                <div class = "row">
+                    <div class = "text-center">
+                        <span class = "display-4">Registrar adopción</span>
+                        <img src = "{% static 'img/iconos/raza2.png' %}" height = "60"
+                             width = "60"
+                             alt = "">
+                    </div>
+                </div>
+                <div class = "row mb-4">
+                    <div class = "col-lg-12 col-sm-12">
+                        <div class = "mb-3">
+                            <label>Ingrese su nombre del can</label> <span style = "color: gold">*</span>
+                            <input class = "form-control" type = "text" name = "txtCan" id = "tags">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "modal-footer z-2 mx-auto text-center">
+                <div class = "row">
+                    <div class = "col-6">
+                        <button type = "button" class = "btn btn-danger" data-bs-dismiss = "modal">Cancelar
+                        </button>
+                    </div>
+                    <div class = "col-6">
+                        <button type = "submit" class = "btn btn-success">Editar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{#<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>#}
+{#<script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>#}
+{#<link href = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"#}
+{#      rel = "stylesheet" type = "text/css"/>#}
+<script>
+    $(function () {
+        var availableTags = [
+            {% for can in canes %}
+                "{{can.nombre}}",
+            {% endfor %}
+        ];
+        $("#tags").autocomplete({
+            source: availableTags
+        });
+    });
+</script>

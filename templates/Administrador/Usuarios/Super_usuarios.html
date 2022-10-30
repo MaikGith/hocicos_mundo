@@ -1,0 +1,91 @@
+{% extends 'Administrador/administrador.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class = "row justify-content-center">
+            <div class = "col-6 text-end">
+                <h2 class = " col-sm-12 col-md-11 col-lg-10 col-xl-9">Administradores</h2>
+            </div>
+            <div class = "col-6 text-end">
+                <div class = "pt-1 pb-1 ps-1 m-1">
+                    <a class = "btn btn-github btn-sm d-inline-flex align-items-center"
+                       href = "{% url 'vista_registrar_usuarios' %}">
+                        <img class = "me-1" src = "{% static 'img/iconos/3.svg' %}" height = "30" width = "30"
+                             alt = "">
+                        <span>Registrar administrador</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "card border-0 shadow mb-4">
+        <div class = "card-body">
+            <form action = "" method = "get">
+                <div class = "row mb-2 justify-content-end">
+                    <div class = "col-6 col-sm-5 col-md-4 text-end">
+                        <input class = "form-control d-inline" placeholder = "Buscar por nombre, apellido o email"
+                               type = "text" name = "search" autocomplete = "off"
+                               value = "{{ request.GET.search }}">
+                    </div>
+                    <div class = "col-3 col-sm-auto col-md-auto text-end">
+                        <button class = "btn btn-facebook" type = "submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <div class = "table-responsive">
+                <table class = "table table-centered table-nowrap mb-0 rounded">
+                    <thead class = "thead-light">
+                    <tr class = "text-center">
+                        <th class = "border-0 rounded-start">Id</th>
+                        <th class = "border-0">Nombres</th>
+                        <th class = "border-0">Apellidos</th>
+                        <th class = "border-0">Email</th>
+                        <th class = "border-0">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for usuario in usuarios %}
+                        <tr class = "text-center">
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.nombres }}</td>
+                            <td>{{ usuario.apellidos }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>
+                                <button onclick = "eliminar_usuario({{ usuario.id }})"
+                                        class = "btn btn-sm btn-danger">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_script %}
+    <script src = "{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function eliminar_usuario(id) {
+            Swal.fire({
+                "title": "Deseas eliminar",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Eliminar",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/usuarios/eliminar/" + id + "/"
+                    }
+                })
+        }
+    </script>
+{% endblock %}

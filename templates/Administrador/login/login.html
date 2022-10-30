@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang = "es">
+<head>
+    <meta charset = "UTF-8"/>
+    <meta name = "viewport"
+          content = "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv = "X-UA-Compatible" content = "ie=edge"/>
+    <title>Inicio de sesión</title>
+    <link href = "{% static 'css/css-admin/vendor/bootstrap/dist/css/bootstrap.min.css' %} " rel = "stylesheet"/>
+    <link rel = "stylesheet" href = "{% static 'css/style.css' %}">
+    <style>
+        .bg {
+            background-image: url({% static 'img/img-index/Hocicosfondo.png' %});
+            background-position: center;
+            background-size: contain;
+            background-position-y: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+<br>
+<div class = "container w-100 bg-gradient rounded shadow px-5 py-4">
+    <div class = "row align-items-stretch ">
+        <div class = "col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded"></div>
+        <div class = "col bg-light p-5 rounded-end bg-opacity-50">
+            <div class = "pt-0 text-center">
+                <img src = "{% static 'img/img-index/icono2.png' %}" height = "100px" alt = "">
+            </div>
+            <h2 class = "fw-bold text-center">Bienvenido</h2>
+            <form method = "POST">
+                {% csrf_token %}
+                <div class = "mb-3">
+                    <label class = "form-label">Usuario</label>
+                    {{ form.username }}
+                </div>
+                <div class = "mb-3">
+                    <label class = "form-label">Password</label>
+                    {{ form.password }}
+                </div>
+                <div class = "d-grid">
+                    <button type = "submit" class = "btn btn-primary">Iniciar Sesión</button>
+                </div>
+                <div class = "mt-3">
+                    <span>No tienes cuenta? <a href = "#">Registrate</a></span> <br/>
+                    <span><a href = "#">Recuperar Contraseña</a></span>
+                </div>
+                <div class = "mb-3 form-check">
+                    <input
+                            type = "checkbox"
+                            name = "connected"
+                            class = "form-check-input"
+                    />
+                    <label for = "connected" class = "form-check-label">
+                        Mantenerme conectado</label
+                    >
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src = "{% static 'css/css-admin/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

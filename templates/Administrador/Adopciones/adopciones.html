@@ -1,0 +1,90 @@
+{% extends 'Administrador/administrador.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class = "row justify-content-center">
+            <div class = "col-12 text-center">
+                <h2 class = "display-3">Lista de adoptadores</h2>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class = "card border-0 shadow mb-0 col-sm-12">
+        <div class = "card-body">
+            <div class = "table-responsive">
+                <table class = "table table-centered table-nowrap mb-0 rounded">
+                    <thead class = "thead-light">
+                    <tr class = "text-center">
+                        <th class = "border-0 rounded-start">Adoptador</th>
+                        <th class = "border-0 ">A su cargo</th>
+                        <th class = "border-0 ">Adoptar</th>
+                        <th class = "border-0 rounded-end">Canes a cargo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for adoptador in adoptadores %}
+                        <tr class = "text-center">
+                            <td>{{ adoptador.usuario.nombres }} {{ adoptador.usuario.apellidos }}</td>
+                            <td>{{ adoptador.cantidad_max }} Can(es)</td>
+                            <td>
+                                {% if adoptador.cantidad_max < 2 %}
+                                    <button onclick = "abrir_modal_registrar_adopcion('{% url 'vista_registrar_adopciones' adoptador.id %}')"
+                                            class = "btn btn-secondary btn-sm">Registrar adopción
+                                    </button>
+                                {% else %}
+                                    Limite máximo
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href = "{% url 'vista_listar_a_cargo' adoptador.id %}"
+                                   class = "btn btn-danger btn-sm">
+                                    A mi cargo
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class = "modal fade" id = "registrar" tabindex = "-1" role = "dialog"
+         aria-labelledby = "modal-subscribe" aria-hidden = "true">
+    </div>
+{% endblock %}
+
+{% block js_script %}
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel = "stylesheet" type = "text/css"/>
+    <script type = "text/javascript">
+        function abrir_modal_registrar_adopcion(url) {
+            $('#registrar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+    <script src = "{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function eliminar_raza(id) {
+            Swal.fire({
+                "title": "Deseas eliminar",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Eliminar",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/adopciones/eliminar/raza/" + id + "/"
+                    }
+                })
+        }
+    </script>
+{% endblock %}

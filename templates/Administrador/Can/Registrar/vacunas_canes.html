@@ -1,0 +1,55 @@
+{% load static %}
+<form action = "{% url 'vista_asignar_vacuna' can.id %}" method = "post">
+    {% csrf_token %}
+    <div class = "modal-dialog modal-tertiary modal-dialog-centered modal-open"
+         role = "document">
+        <div class = "modal-content bg-dark text-white">
+            <div class = "modal-header">
+                <button type = "button" class = "btn-close btn-close-white text-white"
+                        data-bs-dismiss = "modal"
+                        aria-label = "Close"></button>
+            </div>
+            <div class = "modal-body text-center py-3">
+                <div class = "row">
+                    <div class = "text-center">
+                        <span class = "display-4">Asignar vacuna a {{ can.nombre }}</span>
+                        <img src = "{% static 'img/iconos/raza2.png' %}" height = "60"
+                             width = "60"
+                             alt = "">
+                    </div>
+                </div>
+                <div class = "row mb-4">
+                    <div class = "col-lg-12 col-sm-12">
+                        <div class = "mb-3">
+                            <label>Fecha de vacunación</label> <span style = "color: gold">*</span>
+                            <input class = "form-control" type = "date" name = "txtFecha" placeholder = "Ingrese fecha"
+                                   required>
+                        </div>
+                    </div>
+                    <div class = "col-lg-12 col-sm-12">
+                        <div class = "mb-3">
+                            <label>Tipo de vacuna</label> <span style = "color: gold">*</span>
+                            <select class = "form-select" type = "date" name = "txtVacuna" required>
+                                <option>Seleccione una vacuna</option>
+                                {% for vacuna in vacunas %}
+                                    <option value = "{{ vacuna.id }}">{{ vacuna.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "modal-footer z-2 mx-auto text-center">
+                <div class = "row">
+                    <div class = "col-6">
+                        <button type = "button" class = "btn btn-danger" data-bs-dismiss = "modal">Cancelar
+                        </button>
+                    </div>
+                    <div class = "col-6">
+                        <button type = "submit" class = "btn btn-success">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

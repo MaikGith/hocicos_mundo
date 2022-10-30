@@ -1,0 +1,13 @@
+body {
+    height: 100vh;
+    background-image: linear-gradient(180deg, #00ccff, #ffffff);
+}
+
+.btn-color {
+    background-color: #0a178c;
+    color: white;
+}
+
+.transparente {
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(207, 211, 222, 0.5));
+}

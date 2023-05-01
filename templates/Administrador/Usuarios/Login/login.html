@@ -85,6 +85,8 @@
                                                         clip-rule = "evenodd"></path></svg>
                                             </span>
                                         {{ form.password }}
+
+                                        {{ form.username }}
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +105,7 @@
                         </form>
                         <div class = "d-flex justify-content-center align-items-center mt-4">
                                 <span class = "fw-normal">
-                                    <a href = "#" class = "fw-bold">Volver</a>
+                                    <a href = "{% url 'Index' %}" class = "fw-bold">Volver</a>
                                 </span>
                         </div>
                     </div>

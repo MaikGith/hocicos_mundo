@@ -1,61 +1,103 @@
 {% extends 'index.html' %}
+{% load static %}
 {% block content %}
-    <div class = "container-xxl py-5">
-        <div class = "container ">
-            <div class = "row g-0 gx-5 align-items-end ">
-                <div class = "col-lg-12">
-                    <div class = "text-start mx-auto mb-5 wow slideInLeft " data-wow-delay = "0.1s">
-                        <h1 class = "mb-3 fontnav">Adoptame, necesito un hogar</h1>
-                        <p class = "fontnav">A cambio te llevarás un amor incondicional y nunca te dejaré solo</p>
+    <div style="background-image: url('{% static 'img/fondos/3.jpg' %}')" class="container-fluid header py-5">
+        <div class="py-0 py-lg-5">
+        </div>
+        <div class="container pt-1 pt-lg-3">
+            <div class="row g-0 gx-5 align-items-end">
+                <div class="col-lg-12 text-white">
+                    <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                        <h1 style="-webkit-text-stroke: 2px #161d2f;font-family: 'Love Ya Like A Sister Solid'; font-size: 60px"
+                            class="mb-3 text-center text-white">Adoptame necesito <br> un hogar</h1>
+                        <p style="background-color: #3eb6a5; border-radius: 10px; font-size: 25px;"
+                           class="fontnav text-center">A cambio te
+                            llevarás un amor
+                            incondicional y nunca
+                            te dejaré
+                            solo</p>
                     </div>
                 </div>
             </div>
-            <div class = "tab-content">
-                <div id = "tab-1" class = "tab-pane fade show p-0 active">
-                    <div class = "row g-4">
+            <form action="{% url 'pagina_adopciones' %}" method="get">
+                <div class="row mb-4 p-1 fontnav">
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <label class="text-white"
+                               style="background-color: #161d2f; border-radius: 10px; padding: 5px"><b>Buscar por
+                            sexo</b></label><select class="form-select" name="txtSexo"
+                                                    id="">
+                        <option value="">Seleccionar</option>
+                        <option value="Macho">Macho</option>
+                        <option value="Hembra">Hembra</option>
+                    </select>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <label class="text-white"
+                               style="background-color: #161d2f; border-radius: 10px; padding: 5px"><b>Buscar por
+                            tamaño</b></label><select class="form-select" name="txtAltura"
+                                                      id="">
+                        <option value="">Seleccionar</option>
+                        <option value="Pequeño">Pequeño</option>
+                        <option value="Mediano">Mediano</option>
+                        <option value="Grande">Grande</option>
+                    </select>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3 text-center pt-4 mt-2">
+                        <button class="btn btn-secondary" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
                         {% for can in canes %}
-                            <div class = "col-lg-4 col-md-6 wow fadeInUp" data-wow-delay = "0.1s">
-                                <div class = "property-item rounded overflow-hidden">
-                                    <div class = "position-relative overflow-hidden">
-                                        <img style = "width: 550px; height: 350px" class = "img-fluid"
-                                             src = "{{ can.foto.url }}"
-                                             alt = "">
-                                        <div class = "text-center position-absolute start-0 top-50 pt-5">
-                                            <div class = "row">
-                                                <button class = "btn btn-sm btn-primary mb-1">Adoptar</button>
-                                                <a href = "{% url 'vista_donaciones' %}"
-                                                   class = "btn btn-sm btn-success text-white">
-                                                    Apadrinar
-                                                </a>
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="property-item rounded overflow-hidden">
+                                    <div class="position-relative overflow-hidden">
+                                        <img style="width: 550px; height: 350px" class="img-fluid"
+                                             src="{{ can.foto.url }}"
+                                             alt="">
+                                        <div class="col-12 top-0 position-absolute p-1 text-end">
+                                            <a style="background:linear-gradient(30deg,rgb(0,39,84), #141c2c);"
+                                               class="col-6 col-md-5 col-lg-6 btn mb-1 fontnav text-white"
+                                               href="{% url 'vista_solicitud_adopcion' can.id %}">
+                                                <b>ADOPTAR</b>
+                                            </a>
+                                        </div>
+                                        <div class="row col-12 position-absolute start-0 bottom-0 justify-content-between">
+                                            <div class="col-auto bg-white rounded-top text-primary text-start mx-4 pt-2 px-3">
+                                                <h3 class="fontnav">{{ can.nombre }}</h3>
+                                            </div>
+                                            <div class="col-3 text-end">
+                                                <img style="width: 60px; height: 60px" class="img-fluid"
+                                                     src="{% static 'img/img-index/patrocinador_1.png' %}"
+                                                     alt="">
                                             </div>
                                         </div>
-                                        <div class = "bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
-                                            {{ can.nombre }}
-                                        </div>
                                     </div>
-                                    <div class = "p-4 pb-1 mb-0" style = "background-color: #3db8ed">
-                                        <h5 class = "text-white mb-3">Raza: {{ can.raza.nombre }}</h5>
-                                        <h5 class = "d-block h5 mb-2" href = "">Descripción</h5>
+                                    <div class="p-4 pb-1 mb-0" style="background-color: rgb(238,255,255)">
+                                        <h5 class="mb-3">Raza: {{ can.id_raza.nombre }}</h5>
+                                        <h5 class="d-block h5 mb-2" href="">Descripción</h5>
                                         <p>
-                                            <i class = "text-white">
+                                            <i>
                                                 {{ can.personalidad }}
                                             </i>
                                         </p>
                                     </div>
-                                    <div class = "d-flex border-top">
-                                        <small class = "flex-fill text-center border-end py-2"><i
-                                                class = "text-primary me-2"></i>{{ can.color }}
+                                    <div style="background-color: rgba(0,39,84,0.82)" class="d-flex border-top">
+                                        <small class="flex-fill text-center border-end py-2 text-white"><i
+                                                class="me-2"></i>{{ can.color }}
                                         </small>
                                         <small
                                                 {% if can.sexo == "Macho" %}
-                                                    style = "background-color: #15a097; color: white;"
+                                                    style="background-color: #50c0c8; color: white;"
                                                 {% else %}
-                                                    style = "background-color: deeppink; color: white;"
+                                                    style="background-color: #c650b8; color: white;"
                                                 {% endif %}
-                                                    class = "flex-fill text-center border-end py-2"><i
-                                                class = "me-2"></i>{{ can.sexo }}</small>
-                                        <small class = "flex-fill text-center py-2"><i
-                                                class = "text-primary me-2"></i>{{ can.altura }}</small>
+                                                    class="flex-fill text-center border-end py-2"><i
+                                                class="me-2"></i>{{ can.sexo }}</small>
+                                        <small class="flex-fill text-center py-2 text-white"><i
+                                                class=" me-2"></i><b>{{ can.altura }}</b></small>
                                     </div>
 
                                 </div>
@@ -64,7 +106,10 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <div>
+                {% include 'Administrador/Adopciones/paginador.html' %}
+            </div>
         </div>
-    </div>
     </div>
 {% endblock %}

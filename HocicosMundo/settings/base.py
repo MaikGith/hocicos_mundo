@@ -1,5 +1,8 @@
 import os
+
+from django.core.exceptions import ImproperlyConfigured
 from unipath import Path
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).ancestor(3)
@@ -7,8 +10,22 @@ BASE_DIR = Path(__file__).ancestor(3)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k3*+#q4oo*d8@a4h=8b^i+$65kppavj%dcz7#!687(t$_cfy7e'
+
+with open("secret.json") as f:
+    secret = json.loads(f.read())
+
+
+def get_secret(secret_name, secrets=secret):
+    try:
+        return secrets[secret_name]
+    except:
+        msg = "La variable %s existe" % secret_name
+        raise ImproperlyConfigured(msg)
+
+
+SECRET_KEY = get_secret('SECRET_KEY')
 
 # Application definition
 
@@ -29,10 +46,14 @@ LOCAL_APPS = (
     'AppWeb.Modulos.Perdidos.apps.PerdidosConfig',
     'AppWeb.Modulos.Usuarios.apps.UsuariosConfig',
     'AppWeb.Modulos.Administrador.apps.AdministradorConfig',
+    'ckeditor',
+    'ckeditor_uploader',
+    'crispy_forms',
 )
 THIRD_PARTY_APPS = ()
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,3 +111,14 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}

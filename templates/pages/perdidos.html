@@ -1,0 +1,109 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    <div style = "background-image: url('{% static 'img/fondos/6.jpg' %}');"
+         class = "container-fluid header py-5">
+        <div class = "py-0 py-lg-5">
+        </div>
+        <div class = "container pt-1 pt-lg-3">
+            <div class = "row g-0 gx-5 align-items-end">
+                <div class = "col-lg-12 text-white">
+                    <div class = "text-start mx-auto mb-5 wow slideInLeft " data-wow-delay = "0.1s">
+                        <h1 style = "-webkit-text-stroke: 1px #161d2f;font-family: 'Love Ya Like A Sister Solid'; color: #dc3076; font-size: 40px"
+                            class = "mb-3 fontnav text-center">Si me viste o me tienes,<br> ¿podrías llamar a mi dueño?
+                        </h1>
+                        <p style = "background-color: #161d2f; border-radius: 10px; font-size: 25px;"
+                           class = "fontnav text-center">A cambio te lo voy agradecer mucho</p>
+                    </div>
+                </div>
+            </div>
+            <form action = "{% url 'pagina_perdidos' %}" method = "get">
+                {% csrf_token %}
+                <div class = "row mb-4 p-1 fontnav justify-content-end">
+                    <div class = "col-12 col-md-6 col-xl-5">
+                        <label for = ""><b>Buscar por nombre</b></label>
+                        <input class = "form-control" name = "search" autocomplete = "off"
+                               value = "{{ request.GET.search }}">
+                    </div>
+                    <div class = " col-12 col-md-6 col-xl-1 pt-4 ps-3 text-end text-md-start">
+                        <button class = "btn btn-secondary" type = "submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <div class = "tab-content">
+                <div id = "tab-1" class = "tab-pane fade show p-0 active">
+                    <div class = "row g-4">
+                        {% for can in canes %}
+                            <div class = "col-lg-4 col-md-6 wow fadeInUp" data-wow-delay = "0.1s">
+                                <div class = "property-item rounded overflow-hidden">
+                                    <div class = "position-relative overflow-hidden">
+                                        <img style = "width: 550px; height: 350px" class = "img-fluid"
+                                             src = "{{ can.can_perdido.foto.url }}"
+                                             alt = "">
+                                        <div class = "col-12 top-0 position-absolute p-1 text-end">
+                                            <img style = "width: 100px; height: 100px" class = "img-fluid rounded-3"
+                                                 src = "{% static 'img/img-index/fondo_perdido.jpg' %}"
+                                                 alt = "">
+                                        </div>
+                                        <div class = "col-12 top-0 position-absolute p-1 text-start">
+                                            <a style = "background:linear-gradient(30deg,rgb(220,48,118), #dc3076);"
+                                               class = "col-6 col-md-5 col-lg-6 btn mb-1 fontnav text-white"
+                                               href = "{% url 'informacion_perdido' can.id %}">
+                                                <b>Mas información</b>
+                                            </a>
+                                        </div>
+                                        <div class = "bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            <h3 class = "fontnav">{{ can.can_perdido.nombre }}</h3>
+                                        </div>
+                                    </div>
+                                    <div class = "p-4 pb-1 mb-0" style = "background-color: rgb(255,255,255)">
+                                        <h5 class = " mb-3">Raza: {{ can.can_perdido.id_raza.nombre }}</h5>
+                                        <h5 class = "d-block h5 mb-2" href = "">Descripción</h5>
+                                        <p>
+                                            <i>
+                                                {{ can.can_perdido.personalidad }}
+                                            </i>
+                                        </p>
+                                    </div>
+                                    <div style = "background-color: rgba(0,39,84)" class = "d-flex border-top">
+                                        <small class = "flex-fill text-center border-end py-2 text-white"><i
+                                                class = "me-2"></i>{{ can.can_perdido.color }}
+                                        </small>
+                                        <small
+                                                {% if can.can_perdido.sexo == "Macho" %}
+                                                    style = "background-color: #50bec6; color: white;"
+                                                {% else %}
+                                                    style = "background-color: #c450b6; color: white;"
+                                                {% endif %}
+                                                    class = "flex-fill text-center border-end py-2"><i
+                                                class = "me-2"></i>{{ can.can_perdido.sexo }}</small>
+                                        <small class = "flex-fill text-center py-2 text-white"><i
+                                                class = "me-2"></i>{{ can.can_perdido.altura }}</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div>
+                {% include 'Administrador/Adopciones/paginador.html' %}
+            </div>
+        </div>
+    </div>
+    <div class = "modal fade py-5 mt-5" id = "solicitud" tabindex = "-1" role = "dialog"
+         aria-labelledby = "modal-subscribe" aria-hidden = "true">
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type = "text/javascript">
+        function abrir_modal_solicitar_adopcion(url) {
+            $('#solicitud').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+{% endblock %}

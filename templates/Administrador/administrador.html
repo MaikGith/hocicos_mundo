@@ -68,7 +68,7 @@
                 </div>
                 <div class = "d-block">
                     <h2 class = "h5 mb-3">Hola {{ user }}</h2>
-                    <a href = "{% url 'logout' %}"
+                    <a href = "{% url 'vista_logout_usuarios' %}"
                        class = "btn btn-secondary btn-sm d-inline-flex align-items-center">
                         <svg class = "icon icon-xxs me-1" fill = "none" stroke = "currentColor" viewBox = "0 0 24 24"
                              xmlns = "http://www.w3.org/2000/svg">|
@@ -104,6 +104,45 @@
             </li>
             <li class = "nav-item">
                 <span class = "nav-link  collapsed  d-flex justify-content-between align-items-center"
+                      data-bs-toggle = "collapse" data-bs-target = "#submenu-administrador">
+                    <span>
+                        <span class = "sidebar-icon">
+                            <img src = "{% static 'img/iconos/6.svg' %}" alt = "Bootstrap" width = "32"
+                                 height = "32">
+                        </span>
+                    <span class = "sidebar-text">Admin página</span>
+                </span>
+                <span class = "link-arrow">
+                    <svg class = "icon icon-sm" fill = "currentColor" viewBox = "0 0 20 20"
+                         xmlns = "http://www.w3.org/2000/svg">
+                        <path fill-rule = "evenodd"
+                              d = "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                              clip-rule = "evenodd"></path>
+                    </svg>
+                </span></span>
+                <div class = "multi-level collapse "
+                     role = "list" id = "submenu-administrador" aria-expanded = "false">
+                    <ul class = "flex-column nav">
+                        <li class = "nav-item ">
+                            <a class = "nav-link" href = "{% url 'vista_listar_imagenes' %}">
+                                <span class = "sidebar-text">Página de inicio</span>
+                            </a>
+                        </li>
+                        <li class = "nav-item ">
+                            <a class = "nav-link" href = "{% url 'vista_listar_blog' %}">
+                                <span class = "sidebar-text">Blog</span>
+                            </a>
+                        </li>
+                        <li class = "nav-item ">
+                            <a class = "nav-link" href = "{% url 'vista_listar_movimientos' %}">
+                                <span class = "sidebar-text">Movimientos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class = "nav-item">
+                <span class = "nav-link  collapsed  d-flex justify-content-between align-items-center"
                       data-bs-toggle = "collapse" data-bs-target = "#submenu-usuarios">
                     <span>
                         <span class = "sidebar-icon">
@@ -130,7 +169,7 @@
                         </li>
                         <li class = "nav-item ">
                             <a class = "nav-link" href = "{% url 'vista_listar_adoptantes' %}">
-                                <span class = "sidebar-text">Adoptadores</span>
+                                <span class = "sidebar-text">Adoptantes</span>
                             </a>
                         </li>
                         <li class = "nav-item ">
@@ -217,33 +256,24 @@
                     <ul class = "flex-column nav">
                         <li class = "nav-item ">
                             <a class = "nav-link" href = "{% url 'vista_listar_adopciones' %}">
-                                <span class = "sidebar-text">Adoptadores</span>
+                                <span class = "sidebar-text">Adoptantes</span>
                             </a>
                         </li>
                         <li class = "nav-item ">
                             <a class = "nav-link" href = "{% url 'vista_listar_reuniones' %}">
-                                <span class = "sidebar-text">Reuniones</span>
+                                <span class = "sidebar-text">Control visitas</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class = "nav-item ">
-                <a href = "" class = "nav-link">
+                <a href = "{% url 'vista_donaciones' %}" class = "nav-link">
                     <span class = "sidebar-icon">
                         <img src = "{% static 'img/iconos/5.svg' %}" alt = "Bootstrap" width = "32"
                              height = "32">
                     </span>
                     <span class = "sidebar-text">Donaciones</span>
-                </a>
-            </li>
-            <li class = "nav-item ">
-                <a href = "" class = "nav-link">
-                    <span class = "sidebar-icon">
-                        <img src = "{% static 'img/iconos/6.svg' %}" alt = "Bootstrap" width = "32"
-                             height = "32">
-                    </span>
-                    <span class = "sidebar-text">Admin página</span>
                 </a>
             </li>
         </ul>
@@ -294,33 +324,37 @@
         </div>
     </nav>
     {% block contenido %}
-        <div class = "bg-white rounded shadow pt-9 pb-9 mb-4 mt-4">
-            <h1 class = "display-3 text-center">Bienvenid@ {{ user }}</h1>
-        </div>
-        <footer class = "bg-white rounded shadow p-5 mb-4 mt-4">
-            <div class = "row">
-                <div class = "col-12 col-md-4 col-xl-6 mb-4 mb-md-0">
-
-                </div>
-                <div class = "col-12 col-md-8 col-xl-6 text-center text-lg-start">
-                    <!-- List -->
-                    <ul class = "list-inline list-group-flush list-group-borderless text-md-end mb-0">
-                        <li class = "list-inline-item px-0 px-sm-2">
-                            <a href = "https://themesberg.com/about">Acerca</a>
-                        </li>
-                        <li class = "list-inline-item px-0 px-sm-2">
-                            <a href = "https://themesberg.com/themes">Inicio</a>
-                        </li>
-                        <li class = "list-inline-item px-0 px-sm-2">
-                            <a href = "https://themesberg.com/blog">Facebook</a>
-                        </li>
-                        <li class = "list-inline-item px-0 px-sm-2">
-                            <a href = "https://themesberg.com/contact">Twitter</a>
-                        </li>
-                    </ul>
+        <div class = "bg-white rounded shadow  mb-4 mt-4">
+            <div class = "card-body">
+                <div class = "table-responsive">
+                    <table class = "table table-centered table-nowrap mb-0 rounded">
+                        <thead class = "thead-light">
+                        <tr class = "text-center">
+                            <th class = "border-0 rounded-start">Fecha de visita</th>
+                            <th class = "border-0 ">Adoptante</th>
+                            <th class = "border-0 ">Motivo</th>
+                            <th class = "border-0 rounded-end">Realizado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for reunion in reuniones %}
+                            <tr class = "text-center">
+                                <td>{{ reunion.fecha }}</td>
+                                <td>{{ reunion.usuario_adoptivo.usuario.apellidos }} {{ reunion.usuario_adoptivo.usuario.nombres }}</td>
+                                <td>{{ reunion.motivo }}</td>
+                                <td>
+                                    <button onclick = "confirmar({{ reunion.id }})" class = "btn btn-danger btn-sm">
+                                        No realizado
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </footer>
+        </div>
+
     {% endblock %}
 </main>
 <!-- Core -->
@@ -389,7 +423,27 @@
     {% endfor %}
 {% endif %}
 {% block js_script %}
-
+    <script>
+        function confirmar(id) {
+            Swal.fire({
+                "title": "Se realizo la visita",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No",
+                "confirmButtonText": "Si",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/adopciones/confirmar/reuniones/" + id + "/"
+                    }
+                })
+        }
+    </script>
 {% endblock %}
 </body>
 </html>

@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    <div style="background-image: url('{% static 'img/fondos/4.jpg' %}');"
+         class="container-fluid header py-5">
+        <div class="py-0 py-lg-5">
+        </div>
+        <div class="container pt-1 pt-lg-3">
+            <div class="row g-0 gx-5 align-items-end">
+                <div class="col-lg-12">
+                    <div class="text-start mx-auto mb-5 wow slideInLeft text-center" data-wow-delay="0.1s">
+                        <label style="background-color: #005398;border-radius: 10px; font-size: 40px;
+                        -webkit-text-stroke: 1px #161d2f; font-family: 'Love Ya Like A Sister Solid';"
+                               class="fontnav text-white p-2">Mi BLOG</label>
+                    </div>
+                </div>
+            </div>
+            <form action="{% url 'pagina_blog' %}" method="get">
+                {% csrf_token %}
+                <div class="row mb-4 p-1 fontnav justify-content-end">
+                    <div class="col-12 col-md-6 col-xl-5">
+                        <label class="text-white"
+                               style="background-color: #161d2f; border-radius: 10px; padding: 5px"><b>Buscar por
+                            titulo</b></label>
+                        <input class="form-control" name="noticia" autocomplete="off"
+                               value="{{ request.GET.noticia }}">
+                    </div>
+                    <div class=" col-12 col-md-6 col-xl-1 pt-4 ps-3 text-end text-md-start">
+                        <button class="btn btn-secondary" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        {% for blog in blogs %}
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="property-item rounded overflow-hidden">
+                                    <div class="position-relative overflow-hidden">
+                                        <img style="width: 550px; height: 250px" class="img-fluid"
+                                             src="{{ blog.imagen.url }}"
+                                             alt="">
+                                    </div>
+                                    <div class="p-4 pb-1 mb-0" style="background-color: #161d2f">
+                                        <h6 class="text-center text-white mb-3 fontnav">{{ blog.nombre_noticia }}</h6>
+                                        <div class="pb-2 text-center">
+                                            <a href="{% url 'pagina_blog_contenido' blog.id %}"
+                                               class="btn btn-secondary text-white">
+                                                Leer mas
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div>
+                {% include 'Administrador/Pagina/paginador.html' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

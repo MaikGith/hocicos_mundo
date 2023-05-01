@@ -27,4 +27,9 @@ urlpatterns = [
     path('pdf/imprimir/<int:pk>', AdminImprimirAdopcion.as_view(), name='vista_imprimir_pdf'),
     path('listar/reuniones/', AdminListarReuniones.as_view(), name='vista_listar_reuniones'),
     path('registrar/reuniones/<int:pk>', AdminRegistrarReuniones.as_view(), name='vista_registrar_reuniones'),
+    path('editar/reuniones/<int:pk>', AdminEditarReunion.as_view(), name='vista_editar_reuniones'),
+    path('eliminar/reuniones/<int:pk>/', AdminEliminarReunion.as_view(), name='vista_eliminar_reuniones'),
+    path('historial/reuniones/<int:pk>', AdminHistorialReuniones.as_view(), name='vista_historial_reuniones'),
+    path('confirmar/reuniones/<int:pk>/', AdminConfirmarReunion.as_view(), name='vista_confirmar_reuniones'),
+    path('solicitud/<int:pk>', SolicitarAdopcion.as_view(), name='vista_solicitud_adopcion'),
 ]

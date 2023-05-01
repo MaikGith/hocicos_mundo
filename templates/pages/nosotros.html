@@ -1,0 +1,160 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    <div style="background-color: #ffffff" class="container-fluid header p-0">
+        <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+            <div class="col-md-4 p-5 mt-lg-5">
+                <h1 class="display-5 animated fadeIn mb-4 fontnav text-center">Quienes somos</h1>
+            </div>
+            <div class="col-md-8 animated fadeIn">
+                <div class="owl-carousel header-carousel">
+                    {% for imagen in imagenes %}
+                        <div class="owl-carousel-item">
+                            <img class="imgcarrusel"
+                                 src="{{ imagen.imagen.url }}"
+                                 alt=""
+                            />
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="about-img position-relative overflow-hidden p-5 pe-0">
+                        <img class="img-fluid rounded-3 w-100" src="{% static 'img/img-index/fondo3.jpg' %}">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <h1 class="mb-4">Sobre nosotros</h1>
+                    <p style="text-align: justify;" class="mb-4">
+                        Somos un albergue situado en la ciudad de La Paz, con la
+                        misión de rehabilitar a los perros en situación de calle y
+                        mejorar la calidad de sus vidas y darlos en adopción.</p>
+                    {#                    <p><i class="fa fa-check text-primary me-3"></i>Punto 1</p>#}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Call to Action Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="bg-success rounded p-3">
+                <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0,0,0,0.3)">
+                    <div class="row g-5 align-items-center">
+                        <div class="col-lg-6 wow fadeIn text-center" data-wow-delay="0.1s">
+                            <img class="img-fluid rounded w-75"
+                                 src="{% static 'img/img-index/foto3.jpg' %}"
+                                 alt="">
+                        </div>
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                            <div class="mb-4 text-center">
+                                <h1 class="mb-3">Si quieres contactarnos</h1>
+                                <p>No dudes en escribirnos a nuestras redes sociales</p>
+                            </div>
+                            <div class="text-center">
+                                <a style="background-color: #40df5d"
+                                   href="https://wa.me/59177520037?text=Hola%20, quisiera%20saber%20mas%20información%20al%20respecto%20sobre%20las%20adopciones%20y%20otros%20temas."
+                                   class="btn py-3 px-4 me-2 text-white">
+                                    <i class="fa fa-phone-alt me-2"></i>Whatsapp</a>
+                                <a style="background-color: #1772e8"
+                                   href="https://m.me/HOCICOSDELMUNDO?text=Hola%20, quisiera%20saber%20mas%20información%20al%20respecto%20sobre%20las%20adopciones%20y%20otros%20temas."
+                                   class="btn py-3 px-4 text-white">
+                                    <i class="fab fa-facebook-f me-2"></i>Facebook</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Call to Action End -->
+
+
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="mb-3">Nuestras alianzas</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'img/img-index/patrocinador_1.png' %}" alt="">
+                            <br>
+                            <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4 mt-3">
+                            <h5 class="fw-bold mb-0">TAAWA</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'img/img-index/patrocinador_3.png' %}" alt="">
+                            <br><br>
+                            <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4 mt-3">
+                            <h5 class="fw-bold mb-0">next level</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'img/img-index/patrocinador_2.png' %}" alt="">
+                            <br><br>
+                            <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4 mt-3">
+                            <h5 class="fw-bold mb-0">next level <br>COBÍJAME</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{% static 'img/img-index/patrocinador_4.png' %}" alt="">
+                            <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4 mt-3">
+                            <h5 class="fw-bold mb-0">UHU</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

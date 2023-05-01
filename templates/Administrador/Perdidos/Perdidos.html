@@ -3,7 +3,7 @@
 {% block contenido %}
     <div>
         <div class = "row justify-content-center">
-            <div class = "col-6 text-end">
+            <div class = "col-6 text-center">
                 <h2 class = "display-3">Lista de canes perdidos</h2>
             </div>
             <div class = "col-6 text-end">
@@ -13,7 +13,7 @@
                             data-bs-target = "#modal-subscribe">
                         <img src = "{% static 'img/iconos/raza2.png' %}" height = "30" width = "30"
                              alt = "">
-                        <span class = "ms-1">Registrar raza</span>
+                        <span class = "ms-1">Registrar perdida</span>
                     </button>
                     <!-- Contenido del modal -->
                     <form action = "{% url 'vista_registrar_perdidos' %}" method = "post">

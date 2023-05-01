@@ -116,8 +116,7 @@
 </g>
 </svg>
                                                                 </span>
-                                            <input class = "form-control" type = "text" name = "txtNombres"
-                                                   placeholder = "Ingrese nombres">
+                                            {{ form.nombres }}
                                         </div>
                                     </div>
                                     <div class = "form-group mb-4">
@@ -171,8 +170,7 @@
 </g>
 </svg>
                                                                 </span>
-                                            <input class = "form-control" type = "text" name = "txtApellidos"
-                                                   placeholder = "Ingrese apellidos">
+                                            {{ form.apellidos }}
                                         </div>
                                     </div>
                                     <div class = "form-group mb-4">
@@ -254,8 +252,17 @@
 </g>
 </svg>
                                         </span>
-                                            <input class = "form-control" type = "text" name = "txtCi"
-                                                   placeholder = "Ingrese carnet de identidad">
+                                            {{ form.ci }}
+                                        </div>
+                                    </div>
+                                    <div class = "form-group mb-4">
+                                        <div class = "input-group">
+                                        <span class = "input-group-text"
+                                              id = "basic-addon2">
+                                            <img style = "height: 20px; width: 20px"
+                                                 src = "{% static 'img/iconos/7.svg' %}" alt = "">
+                                        </span>
+                                            {{ form.celular }}
                                         </div>
                                     </div>
                                 </div>
@@ -268,8 +275,28 @@
                                                     d = "M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path
                                                     d = "M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                                         </span>
-                                            <input class = "form-control" type = "text" name = "txtCargo"
-                                                   placeholder = "Ingrese cargo asignado">
+                                            {{ form.email }}
+                                        </div>
+                                    </div>
+                                    <div class = "form-group mb-4">
+                                        <div class = "input-group">
+                                        <span class = "input-group-text" id = "basic-addon1">
+                                            <img style = "height: 20px; width: 20px"
+                                                 src = "{% static 'img/iconos/9.svg' %}" alt = "">
+                                        </span>
+                                            {{ form.cargo }}
+                                        </div>
+                                    </div>
+                                    <div class = "form-group">
+                                        <div class = "form-group mb-4">
+                                            <div class = "input-group">
+                                            <span class = "input-group-text" id = "basic-addon2">
+                                                <img style = "height: 20px; width: 20px"
+                                                     src = "{% static 'img/iconos/8.svg' %}" alt = "">
+                                            </span>
+                                                <input class = "form-control" type = "date" name = "txtFecha"
+                                                       placeholder = "Ingrese fecha de nacimiento">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class = "form-group">
@@ -282,8 +309,19 @@
                                                         d = "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
                                                         clip-rule = "evenodd"></path></svg>
                                             </span>
-                                                <input class = "form-control" type = "date" name = "txtFecha"
-                                                       placeholder = "Ingrese fecha de nacimiento">
+                                                {{ form.password }}
+                                            </div>
+                                        </div>
+                                        <div class = "form-group mb-4">
+                                            <div class = "input-group">
+                                            <span class = "input-group-text" id = "basic-addon2">
+                                                <svg class = "icon icon-xs text-gray-600" fill = "currentColor"
+                                                     viewBox = "0 0 20 20" xmlns = "http://www.w3.org/2000/svg"><path
+                                                        fill-rule = "evenodd"
+                                                        d = "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                                        clip-rule = "evenodd"></path></svg>
+                                            </span>
+                                                {{ form.password1 }}
                                             </div>
                                         </div>
                                     </div>
@@ -308,7 +346,7 @@
                         </form>
                         <div class = "d-flex justify-content-center align-items-center mt-4">
                                 <span class = "fw-normal">
-                                    <a href = "#" class = "fw-bold">Volver</a>
+                                    <a href = "{% url 'vista_listar_voluntarios' %}" class = "fw-bold">Volver</a>
                                 </span>
                         </div>
                     </div>

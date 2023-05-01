@@ -1,0 +1,152 @@
+{% extends 'Administrador/administrador.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <h2 class="display-3">Imagenes de la página</h2>
+            </div>
+            <div class="col-6 text-end">
+                <div class="pt-1 pb-1 ps-1 m-1">
+                    <button class="btn btn-tertiary btn-sm d-inline-flex align-items-center" type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modal-subscribe">
+                        <img src="{% static 'img/iconos/raza2.png' %}" height="30" width="30"
+                             alt="">
+                        <span class="ms-1">Nueva imagen</span>
+                    </button>
+                    <form action="{% url 'vista_registrar_imagenes' %}" method="post"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="modal fade" id="modal-subscribe" tabindex="-1" role="dialog"
+                             aria-labelledby="modal-subscribe" aria-hidden="true">
+                            <div class="modal-dialog modal-tertiary modal-dialog-centered modal-open"
+                                 role="document">
+                                <div class="modal-content bg-dark text-white">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close btn-close-white text-white"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center py-3">
+                                        <div class="row">
+                                            <div class="text-center">
+                                                <span class="display-4">Registro de imagenes</span>
+                                                <img src="{% static 'img/iconos/raza2.png' %}" height="60"
+                                                     width="60"
+                                                     alt="">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-lg-12 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label>Nombre de la imagen</label> <span
+                                                        style="color: gold">*</span>
+                                                    <input type="text" class="form-control" name="txtNombre"
+                                                           autocomplete="off" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Imagen</label> <span style="color: gold">*</span>
+                                                    <input type="file" class="form-control" name="txtImagen"
+                                                           autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer z-2 mx-auto text-center">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button class="btn btn-danger" data-bs-dismiss="modal">Cancelar
+                                                </button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="submit" class="btn btn-success">Registrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="card border-0 shadow mb-0 col-sm-12">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0 rounded">
+                    <thead class="thead-light">
+                    <tr class="text-center">
+                        <th class="border-0 rounded-start">#</th>
+                        <th class="border-0 ">Nombre de la imagen</th>
+                        <th class="border-0 ">Imagen</th>
+                        <th class="border-0 rounded-end">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for imagen in imagenes %}
+                        <tr class="text-center">
+                            <td>{{ imagen.id }}</td>
+                            <td>{{ imagen.nombre }}</td>
+                            <td>
+                                <img class="rounded-pill" src="{{ imagen.imagen.url }}" height="40" width="40"
+                                     alt="">
+                            </td>
+                            <td>
+                                <button formmethod="get"
+                                        onclick="abrir_modal_editar('{% url 'vista_editar_imagenes' imagen.id %}')"
+                                        class="btn btn-secondary btn-sm">Editar
+                                </button>
+                                <button onclick="eliminar_imagen({{ imagen.id }})" class="btn btn-danger btn-sm">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editar" tabindex="-1" role="dialog"
+         aria-labelledby="modal-subscribe" aria-hidden="true">
+    </div>
+{% endblock %}
+
+{% block js_script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        function abrir_modal_editar(url) {
+            $('#editar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+    <script src="{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function eliminar_imagen(id) {
+            Swal.fire({
+                "title": "Deseas eliminar",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Eliminar",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/admin_pagina/imagenes/eliminar/" + id + "/"
+                    }
+                })
+        }
+    </script>
+{% endblock %}

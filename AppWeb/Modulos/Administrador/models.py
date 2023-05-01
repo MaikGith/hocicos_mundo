@@ -1,5 +1,6 @@
 from django.db import models
 from AppWeb.Modulos.Usuarios.models import User
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -18,7 +19,10 @@ class Registros_usuarios(models.Model):
 class Blog(models.Model):
     nombre_noticia = models.CharField('Nombre de la noticia', max_length=250)
     imagen = models.ImageField('Imagen', upload_to="Imagines_blog")
-    comentario = models.TextField('Comentario', max_length=1000)
-    fecha = models.DateField('Fecha de publicación', max_length=250)
+    comentario = RichTextField(null=True, blank=True)
+    estado = models.BooleanField(default=True)
+    fecha = models.DateTimeField('Fecha de publicación', auto_now_add=True)
     usuario_creador = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return self.nombre_noticia

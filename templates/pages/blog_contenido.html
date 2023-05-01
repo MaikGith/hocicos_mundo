@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    <div style = "background-color: #ffffff" class = "container-fluid header py-5">
+        <div class = "py-0 py-lg-5">
+        </div>
+        <div class = "container pt-1 pt-lg-3">
+            <div class = "col-12">
+                <div class = "row align-items-center">
+                    <div class = "col-12 col-lg-3">
+                        <div class = "text-start mx-auto mb-5 wow slideInLeft " data-wow-delay = "0.1s">
+                            <h1 class = "text-center fontnav">{{ blog.nombre_noticia }}</h1>
+                            <p class = "fontnav"></p>
+                        </div>
+                    </div>
+                    <div class = "col-12 col-lg-9 text-center">
+                        <img style = "height: 400px; width: 100%;" src = "{{ blog.imagen.url }}"
+                             alt = "">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class = "col-12 wow slideInRight">
+                <div style = "border-color: #161d2f" class = "card card-body border-3">
+                    <p>{{ blog.comentario|safe }}</p>
+                </div>
+
+            </div>
+            <br>
+            <div>
+                {% include 'Administrador/Pagina/paginador.html' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

@@ -2,37 +2,37 @@
 {% load static %}
 {% block contenido %}
     <div>
-        <div class = "row justify-content-center">
-            <div class = "col-12 text-center">
-                <h2 class = "display-3">Lista de adoptadores (Fijar reuniones)</h2>
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h2 class="display-3">Lista de adoptantes (Control de visitas)</h2>
             </div>
         </div>
     </div>
     <br>
-    <div class = "card border-0 shadow mb-0 col-sm-12">
-        <div class = "card-body">
-            <div class = "table-responsive">
-                <table class = "table table-centered table-nowrap mb-0 rounded">
-                    <thead class = "thead-light">
-                    <tr class = "text-center">
-                        <th class = "border-0 rounded-start">Adoptador</th>
-                        <th class = "border-0 ">Registrar reunión</th>
-                        <th class = "border-0 rounded-end">Historial de reuniones</th>
+    <div class="card border-0 shadow mb-0 col-sm-12">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0 rounded">
+                    <thead class="thead-light">
+                    <tr class="text-center">
+                        <th class="border-0 rounded-start">Adoptante</th>
+                        <th class="border-0 ">Registrar visita</th>
+                        <th class="border-0 rounded-end">Historial de visitas</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for adoptador in adoptadores %}
-                        <tr class = "text-center">
+                        <tr class="text-center">
                             <td>{{ adoptador.usuario.nombres }} {{ adoptador.usuario.apellidos }}</td>
                             <td>
-                                <button onclick = "abrir_modal_registrar_reunion('{% url 'vista_registrar_reuniones' adoptador.id %}')"
-                                        class = "btn btn-secondary btn-sm">Registrar reunión
+                                <button onclick="abrir_modal_registrar_reunion('{% url 'vista_registrar_reuniones' adoptador.id %}')"
+                                        class="btn btn-secondary btn-sm">Registrar visita
                                 </button>
                             </td>
                             <td>
-                                <a href = "{% url 'vista_listar_a_cargo' adoptador.id %}"
-                                   style = "color: white;"
-                                   class = "btn btn-success btn-sm">
+                                <a href="{% url 'vista_historial_reuniones' adoptador.id %}"
+                                   style="color: white;"
+                                   class="btn btn-success btn-sm">
                                     Historial
                                 </a>
                             </td>
@@ -43,43 +43,23 @@
             </div>
         </div>
     </div>
-    <div class = "modal fade" id = "registrar" tabindex = "-1" role = "dialog"
-         aria-labelledby = "modal-subscribe" aria-hidden = "true">
+    <div class="modal fade" id="registrar" tabindex="-1" role="dialog"
+         aria-labelledby="modal-subscribe" aria-hidden="true">
     </div>
 {% endblock %}
 
 {% block js_script %}
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-    <script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
-    <link href = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
-          rel = "stylesheet" type = "text/css"/>
-    <script type = "text/javascript">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
         function abrir_modal_registrar_reunion(url) {
             $('#registrar').load(url, function () {
                 $(this).modal('show')
             });
         }
     </script>
-    <script src = "{% static 'js/js-admin/index.js' %}"></script>
-    <script>
-        function eliminar_raza(id) {
-            Swal.fire({
-                "title": "Deseas eliminar",
-                "icon": "question",
-                "showCancelButton": true,
-                "cancelButtonText": "No, Cancelar",
-                "confirmButtonText": "Si, Eliminar",
-                "reverseButtons": true,
-                "confirmButtonColor": "darkred",
-                "showLoaderOnConfirm": true,
-                allowOutsideClick: () => false,
-                allowEscapeKey: () => false,
-            })
-                .then(function (result) {
-                    if (result.isConfirmed) {
-                        window.location.href = "/adopciones/eliminar/raza/" + id + "/"
-                    }
-                })
-        }
-    </script>
+    <script src="{% static 'js/js-admin/index.js' %}"></script>
+
 {% endblock %}

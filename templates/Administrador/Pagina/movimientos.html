@@ -1,0 +1,105 @@
+{% extends 'Administrador/administrador.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <h2 class="display-3">Historial de movimientos</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card border-0 shadow mb-4">
+        <div class="card-body">
+            <form action="{% url 'vista_listar_movimientos' %}" method="get">
+                <div class="row mb-2 justify-content-end">
+                    <div class="col-6 col-sm-5 col-md-4 text-end">
+                        <input class="form-control d-inline" type="text" name="search" autocomplete="off"
+                               value="{{ request.GET.search }}">
+                    </div>
+                    <div class="col-3 col-sm-auto col-md-auto text-end">
+                        <button class="btn btn-facebook" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0 rounded">
+                    <thead class="thead-light">
+                    <tr class="text-center">
+                        <th class="border-0 rounded-start">N#</th>
+                        <th class="border-0">Tipo de movimiento</th>
+                        <th class="border-0">Descripción</th>
+                        <th class="border-0 rounded-end">Usuario</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for movimiento in movimientos %}
+                        <tr class="text-center">
+                            <td>{{ movimiento.id }}</td>
+                            <td>{{ movimiento.tipo }}</td>
+                            <td>{{ movimiento.fecha }}</td>
+                            <td>{{ movimiento.usuario.nombres }} {{ movimiento.usuario.apellidos }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe"
+         aria-hidden="true"></div>
+    <div class="modal fade" id="registrar" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe"
+         aria-hidden="true"></div>
+{% endblock %}
+
+{% block js_script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        $(function () {
+            var availableTags = [
+                {% for can in canes %}
+                    "{{can.nombre}}",
+                {% endfor %}
+            ];
+            $("#tags").autocomplete({
+                source: availableTags
+            });
+        });
+
+        function abrir_modal_editar(url) {
+            $('#editar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+
+        function abrir_modal_registrar_perdido(url) {
+            $('#registrar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+    <script src="{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function encontrado_can(id) {
+            Swal.fire({
+                "title": "¿Se encontró al can?",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, no se encontró",
+                "confirmButtonText": "Si, si se encontró",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/perdidos/encontrado/" + id + "/"
+                    }
+                })
+        }
+    </script>
+{% endblock %}

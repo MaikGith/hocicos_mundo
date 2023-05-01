@@ -29,10 +29,12 @@
     <link href = "{% static 'css/css-index/scss/bootstrap.css' %}" rel = "stylesheet"/>
     <!-- Template Stylesheet -->
     <link href = "{% static 'css/css-index/css/style.css' %}" rel = "stylesheet"/>
+    <link type = "text/css" href = "{% static 'css/css-admin/vendor/sweetalert2/dist/sweetalert2.min.css' %}"
+          rel = "stylesheet">
 </head>
 
 <body>
-<div class = "container-xxl bg-white p-0">
+<div class = "container-fluid bg-white p-0">
     <!-- Spinner Inicio -->
     <div id = "spinner"
          class = "show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -58,11 +60,20 @@
                 <span class = "navbar-toggler-icon"></span>
             </button>
             <div class = "collapse navbar-collapse" id = "navbarCollapse">
-                <div class = "navbar-nav ms-auto fontnav mx-2 ps-4">
+                <div class = "navbar-nav ms-auto fontnav">
                     <a href = "{% url 'Index' %}" class = "text-white nav-item nav-link active">INICIO</a>
-                    <a href = "{% url 'pagina_adopciones' %}" class = "text-white nav-item nav-link">ADOPCIONES</a>
-                    <a href = "" class = "text-white nav-item nav-link">APADRINAR</a>
-                    <a href = "" class = "text-white nav-item nav-link">ESTOY PERDIDO</a>
+                    <div class = "nav-item dropdown">
+                        <a class = "nav-link dropdown-toggle text-white"
+                           data-bs-toggle = "dropdown">CANES</a>
+                        <div class = "dropdown-menu rounded-0 m-0">
+                            <a href = "{% url 'pagina_adopciones' %}" class = "dropdown-item">ADOPCIONES</a>
+                            <a href = "{% url 'pagina_padrinaje' %}" class = "dropdown-item">APADRINAR</a>
+                            <a href = "{% url 'pagina_perdidos' %}" class = "dropdown-item">ESTOY PERDIDO</a>
+                        </div>
+                    </div>
+                    <a href = "{% url 'pagina_blog' %}" class = "text-white nav-item nav-link">BLOG</a>
+                    <a href = "{% url 'pagina_quienes_somos' %}" class = "text-white nav-item nav-link">QUIENES
+                                                                                                        SOMOS</a>
                 </div>
                 {% if request.user.is_authenticated %}
                     <div class = "dropdown me-2">
@@ -75,19 +86,20 @@
                         <ul class = "dropdown-menu dropdown-menu-lg-end dropdown-menu-sm-start"
                             aria-labelledby = "dropdownMenuButton1">
                             <li><a class = "dropdown-item" href = "#">Perfil</a></li>
-                            <li><a class = "dropdown-item" href = "#">An</a></li>
-                            <li><a class = "dropdown-item" href = "#">Cerrar sesión</a></li>
+                            {% if request.user.is_superuser %}
+                                <li><a class = "dropdown-item" href = "{% url 'Administrador' %}">Administrador</a></li>
+                            {% endif %}
+                            <li><a class = "dropdown-item" href = "{% url 'vista_logout_usuarios' %}">Cerrar sesión</a>
+                            </li>
                         </ul>
                     </div>
-                {% else %}
-                    <a class = "btn btn-sm btn-primary text-dark" href = "#">Iniciar Sesión</a>
                 {% endif %}
             </div>
         </nav>
     </div>
     <!-- Navbar Fin -->
     {% block content %}
-        <div class = "container-fluid header bgNavbari p-0">
+        <div style = "background-color: #ffffff;" class = "container-fluid header p-0">
             <div class = "row g-0 align-items-center flex-column-reverse flex-md-row">
                 <div class = "col-md-6 px-5">
                     <div class = "container pt-lg-5 mt-5">
@@ -98,38 +110,34 @@
                         </h1>
                     </div>
                     <div class = "text-center">
-                        <a href = ""
-                           class = "btn btn-secondary py-3 px-5 me-3 animated fadeIn btnfont text-white">Adoptar</a>
-                        <a href = ""
-                           class = "btn btn-info py-3 px-5 me-3 animated fadeIn text-white">Donar</a>
+                        <a style = "background:linear-gradient(30deg,rgb(0,39,84), #141c2c);"
+                           href = "{% url 'pagina_adopciones' %}"
+                           class = "btn py-2 px-4 me-3 animated fadeIn text-white btn-light">Adoptar</a>
+                        <a style = "background:linear-gradient(30deg,#dd3076, #ab0042);"
+                           href = "{% url 'pagina_padrinaje' %}"
+                           class = "btn py-2 px-4 me-3 animated fadeIn text-white btn-light">Donar</a>
                     </div>
                     <br>
                 </div>
                 <div class = "col-md-6 animated fadeIn">
                     <div class = "owl-carousel header-carousel">
-                        <div class = "owl-carousel-item">
-                            <img
-                                    class = "imgcarrusel"
-                                    src = "{% static 'img/img-index/pexels-kat-smith-551628.jpg' %}"
-                                    alt = ""
-                            />
-                        </div>
-                        <div class = "owl-carousel-item">
-                            <img
-                                    class = "imgcarrusel"
-                                    src = "{% static 'img/img-index/pexels-lumn-406014.jpg' %}"
-                                    alt = ""
-                            />
-                        </div>
+                        {% for imagen in imagenes %}
+                            <div class = "owl-carousel-item">
+                                <img class = "imgcarrusel"
+                                     src = "{{ imagen.imagen.url }}"
+                                     alt = ""
+                                />
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     {% endblock %}
-    <div class = "container-fluid bg-dark text-white-50 footer pt-5 mt-0 wow fadeIn" data-wow-delay = "0.1s">
+    <div class = "container-fluid bg-dark text-white-50 footer pt-4 pb-2 mt-0 wow fadeIn" data-wow-delay = "0.1s">
         <div class = "container py-5">
             <div class = "row g-5">
-                <div class = "col-lg-4 col-md-6">
+                <div class = "col-lg-6 col-md-6">
                     <h5 class = "text-white mb-4">Contactos</h5>
                     <p class = "mb-2">
                         <i class = "fa fa-map-marker-alt me-3"></i>Zona Sur
@@ -141,61 +149,25 @@
                         <i class = "fa fa-envelope me-3"></i>hocicosdelmundo@gmail.com
                     </p>
                     <div class = "d-flex pt-2">
-                        <a class = "btn btn-outline-light btn-social" href = ""
-                        ><i class = "fab fa-twitter"></i
-                        ></a>
-                        <a class = "btn btn-outline-light btn-social" href = ""
-                        ><i class = "fab fa-facebook-f"></i
-                        ></a>
-                        <a class = "btn btn-outline-light btn-social" href = ""
-                        ><i class = "fab fa-youtube"></i
-                        ></a>
-                        <a class = "btn btn-outline-light btn-social" href = ""
-                        ><i class = "fab fa-linkedin-in"></i
-                        ></a>
+                        <a class = "btn btn-outline-light btn-social"
+                           href = "https://www.facebook.com/HOCICOSDELMUNDO">
+                            <i class = "fab fa-facebook-f"></i>
+                        </a>
+                        <a class = "btn btn-outline-light btn-social"
+                           href = "https://www.instagram.com/hocicosdelmundobo/?hl=es">
+                            <i class = "fab fa-instagram"></i>
+                        </a>
+
                     </div>
                 </div>
-                <div class = "col-lg-4 col-md-6">
-                    <h5 class = "text-white mb-4">Quick Links</h5>
-                    <a class = "btn btn-link text-white-50" href = "">About Us</a>
-                    <a class = "btn btn-link text-white-50" href = "">Contact Us</a>
-                    <a class = "btn btn-link text-white-50" href = "">Our Services</a>
-                    <a class = "btn btn-link text-white-50" href = "">Privacy Policy</a>
-                    <a class = "btn btn-link text-white-50" href = ""
-                    >Terms & Condition</a
-                    >
-                </div>
-                <div class = "col-lg-4 col-md-6">
-                    <h5 class = "text-white mb-4">Newsletter</h5>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                    <div class = "position-relative mx-auto" style = "max-width: 400px">
-                        <input
-                                class = "form-control bg-transparent w-100 py-3 ps-4 pe-5"
-                                type = "text"
-                                placeholder = "Your email"
-                        />
-                        <button
-                                type = "button"
-                                class = "btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
-                        >
-                            SignUp
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class = "container">
-            <div class = "copyright">
-                <div class = "row justify-content-end">
-                    <div class = "col-md-6"></div>
-                    <div class = "col-md-6 text-end">
-                        <div class = "footer-menu">
-                            <a href = "">Home</a>
-                            <a href = "">Cookies</a>
-                            <a href = "">Help</a>
-                            <a href = "">FQAs</a>
-                        </div>
-                    </div>
+                <div class = "col-lg-6 col-md-6">
+                    <h5 class = "text-white mb-4">Enlaces rápidos</h5>
+                    <a class = "btn btn-link text-white-50" href = "{% url 'Index' %}">Inicio</a>
+                    <a class = "btn btn-link text-white-50" href = "{% url 'pagina_adopciones' %}">Adopciones</a>
+                    <a class = "btn btn-link text-white-50" href = "{% url 'pagina_padrinaje' %}">Donaciones</a>
+                    <a class = "btn btn-link text-white-50" href = "{% url 'pagina_blog' %}">Blog</a>
+                    <a class = "btn btn-link text-white-50" href = "{% url 'pagina_quienes_somos' %}">Quienes somos</a>
+                    <a class = "btn btn-link text-white-50" href = "{% url 'vista_login_usuarios' %}">Iniciar sesión</a>
                 </div>
             </div>
         </div>
@@ -208,5 +180,41 @@
 <script src = "{% static 'js/js-index/lib/waypoints/waypoints.min.js' %}"></script>
 <script src = "{% static 'js/js-index/lib/owlcarousel/owl.carousel.min.js' %}"></script>
 <script src = "{% static 'js/js-index/js/main.js' %}"></script>
+<script src = "{% static 'js/js-admin/sweetalert2@11.js' %}"></script>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <script>
+                Swal.fire({
+                    "title": "{{ message }}",
+                    "icon": "error",
+                })
+            </script>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <script>
+                Swal.fire({
+                    "title": "{{ message }}",
+                    "icon": "success",
+                })
+            </script>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+            <script>
+                Swal.fire({
+                    "title": "{{ message }}",
+                    "icon": "warning",
+                })
+            </script>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            <script>
+                Swal.fire({
+                    "title": "{{ message }} correctamente",
+                    "icon": "info",
+                })
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% block js %}
+{% endblock %}
 </body>
 </html>

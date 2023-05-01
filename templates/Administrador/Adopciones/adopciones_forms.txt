@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport"
+          content = "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv = "X-UA-Compatible" content = "ie=edge">
+    <title>Solicitud de adopción</title>
+</head>
+</head>
+<body>
+<h3>Nombre completo del solicitante</h3>
+<br>{{ name }}
+<h3>Correo electronico</h3>
+<br>{{ email }}
+<h3>Asunto</h3>
+<br>{{ subject }}
+<h3>Mensaje</h3>
+<br>{{ message }}
+</body>
+</html>

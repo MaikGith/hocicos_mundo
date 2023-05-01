@@ -1,0 +1,111 @@
+{% extends 'Administrador/administrador.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class = "col-12 text-end">
+            <a href = "{% url 'vista_listar_reuniones' %}" class = "btn btn-facebook" type = "button">Volver</a>
+        </div>
+        <br>
+        <div class = "card border-0 shadow mb-0 col-sm-12">
+            <div class = "card-body">
+                <div class = "row">
+                    <div class = "col-3 text-center">
+                        <img class = "rounded-pill"
+                             height = "100px"
+                             width = "100px"
+                             src = "{{ adoptador.usuario.foto.url }}"
+                             alt = "">
+                    </div>
+                    <div class = "col-9">
+                        <div class = "row">
+                            <div class = "col-12">
+                                <b>Adoptante:</b> {{ adoptador.usuario.nombres }} {{ adoptador.usuario.apellidos }}
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col-12">
+                                <b>Dirección de domicilio:</b> {{ adoptador.usuario.direccion }}
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col-12">
+                                <b>Celular:</b> {{ adoptador.usuario.celular }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class = "card border-0 shadow mb-0 col-sm-12">
+        <div class = "card-body">
+            <div class = "table-responsive">
+                <table class = "table table-centered table-nowrap mb-0 rounded">
+                    <thead class = "thead-light">
+                    <tr class = "text-center">
+                        <th class = "border-start ">Fecha de visita</th>
+                        <th class = "border-0">Motivo</th>
+                        <th class = "border-end">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for reunion in reuniones %}
+                        <tr class = "text-center">
+                            <td>{{ reunion.fecha }}</td>
+                            <td>{{ reunion.motivo }}</td>
+                            <td>
+                                <button onclick = "abrir_modal_editar_reunion('{% url 'vista_editar_reuniones' reunion.id %}')"
+                                        class = "btn btn-sm btn-secondary">Editar
+                                </button>
+                                <button onclick = "eliminar_visita({{ reunion.id }})" class = "btn btn-sm btn-danger">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class = "modal fade" id = "editar" tabindex = "-1" role = "dialog"
+         aria-labelledby = "modal-subscribe" aria-hidden = "true">
+    </div>
+{% endblock %}
+
+{% block js_script %}
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel = "stylesheet" type = "text/css"/>
+    <script type = "text/javascript">
+        function abrir_modal_editar_reunion(url) {
+            $('#editar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+    <script src = "{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function eliminar_visita(id) {
+            Swal.fire({
+                "title": "Deseas eliminar la visita del adoptante",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, retirar la adopción",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/adopciones/eliminar/reuniones/" + id + "/"
+                    }
+                })
+        }
+    </script>
+{% endblock %}

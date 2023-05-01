@@ -1,5 +1,5 @@
 {% load static %}
-<form action = "{% url 'vista_registrar_' object.id %}" method = "post">
+<form action = "{% url 'vista_editar_raza' object.id %}" method = "post">
     {% csrf_token %}
     <div class = "modal-dialog modal-tertiary modal-dialog-centered modal-open"
          role = "document">
@@ -30,7 +30,7 @@
             <div class = "modal-footer z-2 mx-auto text-center">
                 <div class = "row">
                     <div class = "col-6">
-                        <button class = "btn btn-danger" data-bs-dismiss = "modal">Cancelar
+                        <button type = "button" class = "btn btn-danger" data-bs-dismiss = "modal">Cancelar
                         </button>
                     </div>
                     <div class = "col-6">

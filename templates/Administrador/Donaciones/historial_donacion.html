@@ -1,0 +1,86 @@
+{% extends 'Administrador/administrador.html' %}
+{% load static %}
+{% block contenido %}
+    <div>
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h2 class="display-3">Historial de donaciones ({{ padrino.nombres }} {{ padrino.apellidos }})</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card border-0 shadow mb-4 bg-primary">
+        <div class="card-body">
+            <div class="col-3 col-sm-auto col-md-auto text-end">
+                <a href="{% url 'vista_donaciones' %}" class="btn btn-facebook" type="button">Volver</a>
+            </div>
+            <br>
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0 rounded">
+                    <thead class="thead-light">
+                    <tr class="text-center">
+                        <th class="border-0 rounded-start">Fecha</th>
+                        <th class="border-0">Monto</th>
+                        <th class="border-0">Can</th>
+                        <th class="border-0 rounded-end">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                    {% for can in canes %}
+                        <tr class="text-center">
+                            <td class="rounded-start">{{ can.fecha }}</td>
+                            <td>{{ can.monto }}</td>
+                            <th>{{ can.id_can.nombre }}</th>
+                            <td class="rounded-end">
+                                <button onclick="abrir_modal_editar('{% url 'vista_editar_donacion' can.id %}')"
+                                        class="btn btn-sm btn-secondary">Editar
+                                </button>
+                                <button onclick="eliminar_donacion({{ can.id }})" class="btn btn-sm btn-danger">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe"
+         aria-hidden="true"></div>
+{% endblock %}
+
+{% block js_script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        function abrir_modal_editar(url) {
+            $('#editar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+    <script src="{% static 'js/js-admin/index.js' %}"></script>
+    <script>
+        function eliminar_donacion(id) {
+            Swal.fire({
+                "title": "Deseas eliminar",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Eliminar",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred",
+                "showLoaderOnConfirm": true,
+                allowOutsideClick: () => false,
+                allowEscapeKey: () => false,
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/donaciones/eliminar/" + id + "/"
+                    }
+                })
+        }
+    </script>
+{% endblock %}

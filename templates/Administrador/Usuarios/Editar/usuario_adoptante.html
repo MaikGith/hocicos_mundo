@@ -290,6 +290,17 @@
                                             {{ form.direccion }}
                                         </div>
                                     </div>
+                                    <label>Número de celular</label>
+                                    <div class = "form-group mb-4">
+                                        <div class = "input-group">
+                                        <span class = "input-group-text"
+                                              id = "basic-addon2">
+                                            <img style = "height: 20px; width: 20px"
+                                                 src = "{% static 'img/iconos/7.svg' %}" alt = "">
+                                        </span>
+                                            {{ form.celular }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             {% if form.errors %}
@@ -311,7 +322,7 @@
                         </form>
                         <div class = "d-flex justify-content-center align-items-center mt-4">
                                 <span class = "fw-normal">
-                                    <a href = "#" class = "fw-bold">Volver</a>
+                                    <a href = "{% url 'vista_listar_adoptantes' %}" class = "fw-bold">Volver</a>
                                 </span>
                         </div>
                     </div>
